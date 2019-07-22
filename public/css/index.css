@@ -95,7 +95,7 @@ a, a:hover, a:focus {
     font-size: 70%;
     color: #f8f8ff;
     background-color: #1BC98E;
-    padding: 0 0.25rem 0 0.25rem;
+    padding: 0.25em 0.4em;
     border-radius: 0.25rem;
 }
 
