@@ -1,4 +1,4 @@
-function config(title, time, data, primarty_colour, background_colour) {
+function config(title, time, data, primary_colour, background_colour) {
     return {
         type: 'line',
         data: {
@@ -13,11 +13,11 @@ function config(title, time, data, primarty_colour, background_colour) {
                     data: data,
                     fontColor: 'rgba(0, 0, 0, 1)',
                     fontSize: 32,
-                    borderColor: colour,
-                    pointBoarderColor: colour,
+                    borderColor: primary_colour,
+                    pointBoarderColor: primary_colour,
                     backgroundColor: background_colour,
-                    pointHoverBackgroundColor: colour,
-                    pointHoverBorderColor: colour,
+                    pointHoverBackgroundColor: primary_colour,
+                    pointHoverBorderColor: primary_colour,
                 }]
         },
         options: {
