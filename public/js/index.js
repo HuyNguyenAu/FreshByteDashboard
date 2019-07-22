@@ -75,6 +75,7 @@ $(document).ready(function () {
             const maxLen = 100;
             if (!obj.time || !obj.temp || !obj.humidity || !obj.o2 || !obj.co2 || !obj.accel
                 || !obj.shelf_life || !obj.ethylene || !obj.lon || !obj.lat) {
+                console.log('Message contains unexpected contents: ' + obj);
                 return;
             }
 
