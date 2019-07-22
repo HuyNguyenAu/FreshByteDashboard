@@ -44,7 +44,7 @@ function chart(context, title, time_data, data, primarty_colour, background_colo
 }
 
 function delta(new_value, old_value) {
-    return Math.round((1 - (old_value / new_value)) * 100) + "%";
+    return Math.round((1 - (old_value / new_value)) * 100);
 }
 
 $(document).ready(function () {
@@ -94,7 +94,13 @@ $(document).ready(function () {
                 document.getElementById("temp").textContent = obj.temp + "°C";
 
                 if (temp_data.length > 1) {
-                    document.getElementById("temp-delta").textContent = delta(obj.temp, temp_data[temp_data.length - 1]);
+                    var delta_value = delta(obj.temp, temp_data[temp_data.length - 1]);
+                    document.getElementById("temp-delta").textContent = delta_value + "%";
+                    if (delta_value < 0) {
+                        document.getElementById("temp-delta").backgroundColor = "#E64759";
+                    } else {
+                        document.getElementById("temp-delta").backgroundColor = "#1BC98E";
+                    }
                 }
                 temp_data.push(obj.temp);
             }
