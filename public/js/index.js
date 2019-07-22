@@ -127,7 +127,7 @@ $(document).ready(function () {
             }
 
             if (obj.shelf_life) {
-                document.getElementById("shelf-life").innerHTML = obj.shelflife + ' days';
+                document.getElementById("shelf-life").innerHTML = obj.shelf_life + ' days';
                 shelf_life_data.push(obj.shelf_life);
             }
             if (shelf_life_data.length > maxLen) {
