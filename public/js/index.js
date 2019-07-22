@@ -95,7 +95,7 @@ $(document).ready(function () {
 
                 if (temp_data.length > 1) {
                     document.getElementById("temp").innerHTML += 
-                    statDelta(((obj.temp / temp_data[temp_data.length - 1]) * 100) + "%");
+                    statDelta((((obj.temp / temp_data[temp_data.length - 1]) - 1) * 100) + "%");
                 }
 
                 temp_data.push(obj.temp);
