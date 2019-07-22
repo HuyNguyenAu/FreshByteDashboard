@@ -44,7 +44,7 @@ function chart(context, title, time_data, data, primarty_colour, background_colo
 }
 
 function delta(new_value, old_value) {
-    return "<small class=\"stat-delta\">" + Math.round((1 - (old_value / new_value)) * 100) + "%" +  "</small>";
+    return Math.round((1 - (old_value / new_value)) * 100) + "%";
 }
 
 $(document).ready(function () {
@@ -92,11 +92,7 @@ $(document).ready(function () {
 
             if (obj.temp) {
                 document.getElementById("temp").textContent = obj.temp + "°C";
-
-                if (temp_data.length > 1) {
-                    document.getElementById("temp").innerHTML += 
-                    delta(obj.temp, temp_data[temp_data.length - 1]);
-                }
+                document.getElementById("temp_delta").textContent = delta(obj.temp, temp_data[temp_data.length - 1]);
 
                 temp_data.push(obj.temp);
             }
