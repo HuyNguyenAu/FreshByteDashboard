@@ -43,8 +43,8 @@ function chart(context, title, time_data, data, primarty_colour, background_colo
     );
 }
 
-function statDelta(delta) {
-    return "<small class=\"stat-delta\">" + Math.round(delta)  + "</small>"
+function delta(new_value, old_value) {
+    return "<small class=\"stat-delta\">" + Math.round(1 - (old_value / new_value)) + "%" +  "</small>";
 }
 
 $(document).ready(function () {
@@ -95,7 +95,7 @@ $(document).ready(function () {
 
                 if (temp_data.length > 1) {
                     document.getElementById("temp").innerHTML += 
-                    statDelta((((obj.temp / temp_data[temp_data.length - 1]) - 1) * 100) + "%");
+                    delta(obj.temp, temp_data[temp_data.length - 1]);
                 }
 
                 temp_data.push(obj.temp);
