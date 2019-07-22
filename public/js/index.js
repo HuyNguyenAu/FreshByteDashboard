@@ -142,8 +142,7 @@ $(document).ready(function () {
                 ethylene_data.shift();
             }
 
-            if (obj.lon) {
-                document.getElementById("lon").innerHTML = 'Lon: ' + obj.lon;
+            if (obj.lon) {              
                 lon_data.push(obj.lon);
             }
             if (lon_data.length > maxLen) {
@@ -151,12 +150,14 @@ $(document).ready(function () {
             }
 
             if (obj.lat) {
-                document.getElementById("lat").innerHTML = 'Lat: ' + obj.lat;
                 lat_data.push(obj.lat);
             }
             if (lat_data.length > maxLen) {
                 lat_data.shift();
             }
+
+            // !!! Need to figure out a way to better handle location.
+            document.getElementById("location").innerHTML = "Lon: " + obj.lon + ", Lat: " + obj.lat;
 
             temp_chart.update();
             humidity_chart.update();
