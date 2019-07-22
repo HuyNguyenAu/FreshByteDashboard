@@ -97,9 +97,9 @@ $(document).ready(function () {
                     var delta_value = delta(obj.temp, temp_data[temp_data.length - 1]);
                     document.getElementById("temp-delta").textContent = delta_value + "%";
                     if (delta_value < 0) {
-                        document.getElementById("temp-delta").backgroundColor = "#E64759";
+                        document.getElementById("temp-delta").style.backgroundColor = "#E64759";
                     } else {
-                        document.getElementById("temp-delta").backgroundColor = "#1BC98E";
+                        document.getElementById("temp-delta").style.backgroundColor = "#1BC98E";
                     }
                 }
                 temp_data.push(obj.temp);
