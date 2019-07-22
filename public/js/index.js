@@ -111,8 +111,8 @@ $(document).ready(function () {
             }
 
             if (obj.co2) {
-                document.getElementById("co2").innerHTML = (obj.co2 / 10000.0).toFixed(3) + "%";
-                co2_data.push(obj.co2 / 10000.0);
+                document.getElementById("co2").innerHTML = obj.co2 + "%";
+                co2_data.push(obj.co2);
             }
             if (co2_data.length > maxLen) {
                 co2_data.shift();
@@ -128,7 +128,7 @@ $(document).ready(function () {
 
             if (obj.shelf_life) {
                 document.getElementById("shelf-life").innerHTML = obj.shelflife + ' days';
-                shelf_life.push(obj.shelflife);
+                shelf_life.push(obj.shelf_life);
             }
             if (shelf_life.length > maxLen) {
                 shelf_life.shift();
