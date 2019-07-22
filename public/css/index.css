@@ -95,7 +95,7 @@ a, a:hover, a:focus {
 .stat-delta {  
     font-size: 100%;
     color: #f8f8ff;
-    /* background-color: #1BC98E; */
+    background-color: #1BC98E;
     padding: 0 0.25rem 0 0.25rem;
     border-radius: 0.25rem;  
 }
