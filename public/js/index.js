@@ -44,7 +44,7 @@ function chart(context, title, time_data, data, primarty_colour, background_colo
 }
 
 function statDelta(delta) {
-    return "<small class=\"stat-delta\">" + delta + "</small>"
+    return "<small class=\"stat-delta\">" + Math.round(delta)  + "</small>"
 }
 
 $(document).ready(function () {
