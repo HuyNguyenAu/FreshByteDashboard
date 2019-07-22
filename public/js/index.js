@@ -130,7 +130,7 @@ $(document).ready(function () {
                 document.getElementById("shelf-life").innerHTML = obj.shelflife + ' days';
                 shelf_life_data.push(obj.shelf_life);
             }
-            if (shelf_life.length > maxLen) {
+            if (shelf_life_data.length > maxLen) {
                 shelf_life_data.shift();
             }
 
