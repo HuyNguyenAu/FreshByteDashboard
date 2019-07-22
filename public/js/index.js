@@ -91,7 +91,7 @@ $(document).ready(function () {
             }
 
             if (obj.temp) {
-                document.getElementById("temp").innerHTML = obj.temp + "°C";
+                document.getElementById("temp").textContent = obj.temp + "°C";
 
                 if (temp_data.length > 1) {
                     document.getElementById("temp").innerHTML += 

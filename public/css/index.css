@@ -88,16 +88,18 @@ a, a:hover, a:focus {
 
 .stat-value {  
     font-size: 2rem;
-    font-weight: 300;
+    font-weight: 300;  
+    
 }
 
 .stat-delta {  
     font-size: 70%;
     color: #f8f8ff;
     background-color: #1BC98E;
-    padding: 0.25em 0.4em;
+    padding: 0 0.25rem 0 0.25rem;
     border-radius: 0.25rem;
 }
+
 
 /* 
 Flex box unable to have equal width that fits into the width of the page.
