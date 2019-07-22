@@ -9,7 +9,7 @@ function config(title, time, data) {
                     label: title,
                     fontSize: 12,
                     yAxisID: "y-axis-0",
-                    fill: false,
+                    fill: true,
                     data: data,
                     fontColor: 'rgba(0, 0, 0, 1)',
                     fontSize: 32,
