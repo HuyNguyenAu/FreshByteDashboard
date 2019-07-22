@@ -1,4 +1,4 @@
-function config(title, time, data) {
+function config(title, time, data, primarty_colour, background_colour) {
     return {
         type: 'line',
         data: {
@@ -13,11 +13,11 @@ function config(title, time, data) {
                     data: data,
                     fontColor: 'rgba(0, 0, 0, 1)',
                     fontSize: 32,
-                    borderColor: "rgba(0, 123, 255, 1)",
-                    pointBoarderColor: "rgba(0, 123, 255, 1)",
+                    borderColor: colour,
+                    pointBoarderColor: colour,
                     backgroundColor: "rgba(0, 123, 255, 0.4)",
-                    pointHoverBackgroundColor: "rgba(0, 123, 255, 1)",
-                    pointHoverBorderColor: "rgba(0, 123, 255, 1)",
+                    pointHoverBackgroundColor: colour,
+                    pointHoverBorderColor: colour,
                 }]
         },
         options: {
@@ -36,10 +36,10 @@ function config(title, time, data) {
     };
 }
 
-function chart(context, title, time_data, data) {
+function chart(context, title, time_data, data, primarty_colour, background_colour) {
     return new Chart(
         document.getElementById(context).getContext('2d'),
-        config(title, time_data, data)
+        config(title, time_data, data, primarty_colour, background_colour)
     );
 }
 
@@ -55,13 +55,13 @@ $(document).ready(function () {
         lon_data = [],
         lat_data = [];
 
-    var temp_chart = chart("temp-chart", "Temperature (Celsius)", time_data, temp_data),
-        humidity_chart = chart("humidity-chart", "Humidity (%)", time_data, humidity_data),
-        o2_chart = chart("o2-chart", "O2 (%)", time_data, o2_data),
-        co2_chart = chart("co2-chart", "CO2 (%)", time_data, co2_data),
-        accel_chart = chart("accel-chart", "Accel |m/s^2|", time_data, accel_data),
-        shelf_life_chart = chart("shelf-life-chart", "Shelf Life (Days)", time_data, shelf_life_data),
-        ethylene_chart = chart("ethylene-chart", "Ethyene pmol/(kgs)", time_data, ethylene_data);
+    var temp_chart = chart("temp-chart", "Temperature (Celsius)", time_data, temp_data, "rgba(255, 99, 132, 1)"),
+        humidity_chart = chart("humidity-chart", "Humidity (%)", time_data, humidity_data, "rgba(54, 162, 235, 1)"),
+        o2_chart = chart("o2-chart", "O2 (%)", time_data, o2_data, "rgba(75, 192, 192, 1)"),
+        co2_chart = chart("co2-chart", "CO2 (%)", time_data, co2_data, "rgba(145, 97, 242, 1)"),
+        accel_chart = chart("accel-chart", "Accel |m/s^2|", time_data, accel_data, "rgba(255, 205, 86, 1)"),
+        shelf_life_chart = chart("shelf-life-chart", "Shelf Life (Days)", time_data, shelf_life_data, "rgba(255, 201, 14, 1)"),
+        ethylene_chart = chart("ethylene-chart", "Ethyene pmol/(kgs)", time_data, ethylene_data, "rgba(128, 64, 64, 1)");
 
     var webSocket = new WebSocket('wss://' + location.host);
     webSocket.onopen = function () {
