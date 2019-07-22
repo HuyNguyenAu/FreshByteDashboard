@@ -44,7 +44,7 @@ function chart(context, title, time_data, data, primarty_colour, background_colo
 }
 
 function delta(new_value, old_value) {
-    return "<small class=\"stat-delta\">" + Math.round(1 - (old_value / new_value)) + "%" +  "</small>";
+    return "<small class=\"stat-delta\">" + Math.round((1 - (old_value / new_value)) * 100) + "%" +  "</small>";
 }
 
 $(document).ready(function () {
