@@ -128,10 +128,10 @@ $(document).ready(function () {
 
             if (obj.shelf_life) {
                 document.getElementById("shelf-life").innerHTML = obj.shelflife + ' days';
-                shelf_life.push(obj.shelf_life);
+                shelf_life_data.push(obj.shelf_life);
             }
             if (shelf_life.length > maxLen) {
-                shelf_life.shift();
+                shelf_life_data.shift();
             }
 
             if (obj.ethylene) {
