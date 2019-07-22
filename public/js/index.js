@@ -92,7 +92,10 @@ $(document).ready(function () {
 
             if (obj.temp) {
                 document.getElementById("temp").textContent = obj.temp + "°C";
-                document.getElementById("temp_delta").textContent = delta(obj.temp, temp_data[temp_data.length - 1]);
+
+                if (temp_data.length > 1) {
+                    document.getElementById("temp_delta").textContent = delta(obj.temp, temp_data[temp_data.length - 1]);
+                }
 
                 temp_data.push(obj.temp);
             }
