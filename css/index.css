@@ -1,0 +1,146 @@
+@font-face {
+    font-family: 'forte';
+    src: url('/font/forte.ttf') format('truetype');
+}
+
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+body {
+    background: #f8f8ff;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+/* Side Bar */
+a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #f8f8ff;
+    color: rgba(0, 0, 0, 0.5);
+    transition: all 0.3s;
+}
+
+#brand-logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 3rem;
+    height: 3rem;
+}
+
+#brand-name{
+    display: flex;
+    padding: 10px;
+    font-size: 3rem;
+    color: #000000 !important;
+    font-family: 'forte';
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 0.9em;
+    display: block;
+}
+#sidebar ul li a:hover {
+    color: #007bff;
+}
+
+#sidebar ul li.active {
+    color: #f8f8ff;
+    background: #007bff;
+    border-radius: 0.25rem;
+}
+
+/* Don't change the font color of the active item when hovering */
+#sidebar a.active:hover {
+    color: #f8f8ff !important;
+}
+
+.sidebar-header {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom:  5px;
+    font-size: 85%;
+    font-weight: normal;
+    letter-spacing: 1px;
+    color: #51586a;
+    text-transform: uppercase;
+}
+
+.stat-header {
+    font-size: 85%;
+    letter-spacing: 0.15em;
+    color: #78838e;
+    text-transform: uppercase;
+}
+
+.stat-value {  
+    font-size: 2rem;
+    font-weight: 300;
+}
+
+.stat-delta {  
+    font-size: 70%;
+    color: #f8f8ff;
+    background-color: #1BC98E;
+    padding: 0 0.25rem 0 0.25rem;
+    border-radius: 0.25rem;
+}
+
+/* 
+Flex box unable to have equal width that fits into the width of the page.
+Used grid instead.
+https://stackoverflow.com/questions/44154580/equal-width-flex-items-even-after-they-wrap 
+*/
+.stat-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 2vw;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+.line-close {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #ddd;
+    margin: 20px 0 40px 0;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #ddd;
+    margin: 40px 0;
+}
+
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+#content {
+    padding: 20px;
+    margin: 0;
+    min-height: 100vh;
+    transition: all 0.3s;
+    flex-grow: 1;
+}
+
+#content .content-header {
+    text-align: center;
+    font-weight: 300;
+}
+
