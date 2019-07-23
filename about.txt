@@ -1,4 +1,0 @@
-https://github.com/Azure-Samples/AzureMapsCodeSamples/tree/master/AzureMapsCodeSamples/Custom%20Modules/Bring%20Data%20Into%20View%20Control
-https://github.com/Azure-Samples/AzureMapsCodeSamples/blob/master/AzureMapsCodeSamples/Controls/Map%20Navigation%20Control%20Options.html
-https://github.com/Azure-Samples/AzureMapsCodeSamples/blob/master/AzureMapsCodeSamples/Device%20Sensors/Continuous%20User%20Position%20Tracking.html
-https://github.com/Azure-Samples/AzureMapsCodeSamples/blob/master/AzureMapsCodeSamples/Animations/HTML%20Marker%20Pulse%20Animation.html
