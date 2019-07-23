@@ -1,3 +1,4 @@
+// Create config with specified parameters, keeps the core code simple.
 function config(title, time, data, primary_colour, background_colour) {
     return {
         type: 'line',
@@ -36,6 +37,7 @@ function config(title, time, data, primary_colour, background_colour) {
     };
 }
 
+// Create chart with custom config, keeps the core code simple.
 function chart(context, title, time_data, data, primarty_colour, background_colour) {
     return new Chart(
         document.getElementById(context).getContext('2d'),
@@ -43,10 +45,12 @@ function chart(context, title, time_data, data, primarty_colour, background_colo
     );
 }
 
+// Calculate the percentange change. 
 function delta(new_value, old_value) {
     return Math.round((1 - (old_value / new_value)) * 100);
 }
 
+// Change the delta values and the colour accordingly.
 function UpdateDelta(delta_value, id) {
     document.getElementById(id).textContent = delta_value + "%";
 
@@ -82,17 +86,26 @@ $(document).ready(function () {
         console.log('Successfully connect WebSocket');
     }
 
+
+    // Update the data arrays and dashboard elements to latest MQTT message received.
+    // Keep the code complexity out of the dashboard.
+    // The dashboard only displays the information received, arduino does the pre-processing.
+    // !!! Need a better way to handle the repeated code blocks below.
     webSocket.onmessage = function (message) {
         console.log('Received message: ' + message.data);
         try {
             var obj = JSON.parse(message.data);
             const maxLen = 100;
+
+            // Make sure the MQTT message contains all of the following fields.
+            // Else, it's not what we want.
             if (!obj.time || !obj.temp || !obj.humidity || !obj.o2 || !obj.co2 || !obj.accel
                 || !obj.shelf_life || !obj.ethylene || !obj.lon || !obj.lat) {
                 console.log('Message contains unexpected contents: ' + obj);
                 return;
             }
 
+            // Update the data and dashboard elements.
             if (obj.time) {
                 time_data.push(obj.time);
             }
@@ -100,11 +113,12 @@ $(document).ready(function () {
                 time_data.shift();
             }
 
+            // Temp.
             if (obj.temp) {
                 document.getElementById("temp").textContent = obj.temp + "°C";
 
                 if (temp_data.length > 1) {
-                    UpdateDelta(delta(obj.temp, temp_data[temp_data.length - 1]), "temp-delta");                 
+                    UpdateDelta(delta(obj.temp, temp_data[temp_data.length - 1]), "temp-delta");
                 }
                 temp_data.push(obj.temp);
             }
@@ -112,10 +126,11 @@ $(document).ready(function () {
                 temp_data.shift();
             }
 
+            // Humidity.
             if (obj.humidity) {
                 document.getElementById("humidity").textContent = obj.humidity + "%";
                 if (humidity_data.length > 1) {
-                    UpdateDelta(delta(obj.humidity, humidity_data[humidity_data.length - 1]), "humidity-delta");      
+                    UpdateDelta(delta(obj.humidity, humidity_data[humidity_data.length - 1]), "humidity-delta");
                 }
                 humidity_data.push(obj.humidity);
             }
@@ -123,10 +138,11 @@ $(document).ready(function () {
                 humidity_data.shift();
             }
 
+            // O2.
             if (obj.o2) {
                 document.getElementById("o2").textContent = obj.o2 + "%";
                 if (o2_data.length > 1) {
-                    UpdateDelta(delta(obj.o2, o2_data[o2_data.length - 1]), "o2-delta");   
+                    UpdateDelta(delta(obj.o2, o2_data[o2_data.length - 1]), "o2-delta");
                 }
                 o2_data.push(obj.o2);
             }
@@ -134,10 +150,12 @@ $(document).ready(function () {
                 o2_data.shift();
             }
 
+            // CO2.
             if (obj.co2) {
                 document.getElementById("co2").textContent = obj.co2 + "%";
-                if (co2_data.length > 1) {;
-                    UpdateDelta(delta(obj.co2, co2_data[co2_data.length - 1]), "co2-delta");   
+                if (co2_data.length > 1) {
+                    ;
+                    UpdateDelta(delta(obj.co2, co2_data[co2_data.length - 1]), "co2-delta");
                 }
                 co2_data.push(obj.co2);
             }
@@ -145,10 +163,11 @@ $(document).ready(function () {
                 co2_data.shift();
             }
 
+            // Accel.
             if (obj.accel) {
                 document.getElementById("accel").textContent = obj.accel + " |m/s^2|";
                 if (accel_data.length > 1) {
-                    UpdateDelta(delta(obj.accel, accel_data[accel_data.length - 1]), "accel-delta");   
+                    UpdateDelta(delta(obj.accel, accel_data[accel_data.length - 1]), "accel-delta");
                 }
                 accel_data.push(obj.accel);
             }
@@ -156,10 +175,11 @@ $(document).ready(function () {
                 accel_data.shift();
             }
 
+            // Shelf life. The arduino figures out the shelf life, not the dashboard.
             if (obj.shelf_life) {
                 document.getElementById("shelf-life").textContent = obj.shelf_life + ' days';
                 if (shelf_life_data.length > 1) {
-                    UpdateDelta(delta(obj.shelf_life, shelf_life_data[shelf_life_data.length - 1]), "shelf-life-delta");   
+                    UpdateDelta(delta(obj.shelf_life, shelf_life_data[shelf_life_data.length - 1]), "shelf-life-delta");
                 }
                 shelf_life_data.push(obj.shelf_life);
             }
@@ -167,10 +187,11 @@ $(document).ready(function () {
                 shelf_life_data.shift();
             }
 
+            // Ethylene.
             if (obj.ethylene) {
                 document.getElementById("ethylene").textContent = obj.ethylene + ' pmol/(kg*s)';
                 if (ethylene_data.length > 1) {
-                    UpdateDelta(delta(obj.ethylene, ethylene_data[ethylene_data.length - 1]), "ethylene-delta");   
+                    UpdateDelta(delta(obj.ethylene, ethylene_data[ethylene_data.length - 1]), "ethylene-delta");
                 }
                 ethylene_data.push(obj.ethylene);
             }
@@ -178,6 +199,9 @@ $(document).ready(function () {
                 ethylene_data.shift();
             }
 
+            // Location.
+            // !!! Need to figure out a way to better handle location.
+            document.getElementById("location").innerHTML = "Lon: " + obj.lon + ", Lat: " + obj.lat;
             if (obj.lon) {
                 lon_data.push(obj.lon);
             }
@@ -190,11 +214,9 @@ $(document).ready(function () {
             }
             if (lat_data.length > maxLen) {
                 lat_data.shift();
-            }
+            }         
 
-            // !!! Need to figure out a way to better handle location.
-            document.getElementById("location").innerHTML = "Lon: " + obj.lon + ", Lat: " + obj.lat;
-
+            // Update the charts to reflect data array changes.
             temp_chart.update();
             humidity_chart.update();
             o2_chart.update();
