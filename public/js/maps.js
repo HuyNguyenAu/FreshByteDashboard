@@ -1,6 +1,6 @@
 $(document).ready(function () {
     // Azure Maps.
-    var ready = false, user_position_marker, user_position = [144.96292, -37.80737],
+    var ready = false, user_position_marker, user_position = [18, 5],
         map = new atlas.Map('LoadMap', {
             center: user_position,
             authOptions: {
