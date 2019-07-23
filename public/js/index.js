@@ -24,7 +24,10 @@ function config(title, time, data, primary_colour, background_colour) {
         options: {
             layout: {
                 padding: {
-                    top: 5
+                    top: 5,
+                    bottom: 5,
+                    left: 5,
+                    right: 5
                 }
             },
             legend: {
