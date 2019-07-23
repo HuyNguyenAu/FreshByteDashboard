@@ -22,6 +22,7 @@ function config(title, time, data, primary_colour, background_colour) {
                 }]
         },
         options: {
+            // Low and high values will clip. Need to add padding to fix it.
             layout: {
                 padding: {
                     top: 5,
