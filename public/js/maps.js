@@ -1,13 +1,14 @@
 $(document).ready(function () {
     // Azure Maps.
-    var ready = false, user_position_marker, user_position = [18, 5],
+    var ready = false, user_position_marker, user_position = [144.96292, -37.80737],
         map = new atlas.Map('LoadMap', {
             center: user_position,
             authOptions: {
                 authType: 'subscriptionKey',
                 subscriptionKey: 'Ax6CHWnkkH7Zjt1uoQvH8TfBspFTMkPPybuLWF0V8_M'
-            }
-        });
+            },
+            enableAccessibility: true,
+        }), controls = [];
 
     var webSocket = new WebSocket('wss://' + location.host);
     webSocket.onopen = function () {
@@ -30,21 +31,17 @@ $(document).ready(function () {
 
             // Location.
             document.getElementById("location").innerHTML = "Lon: " + obj.lon + ", Lat: " + obj.lat;
+
+            // !!! IDK if this is the best way to implement live tracking.
             user_position = [obj.lon, obj.lat];
 
             if (ready) {
                 map.markers.remove(user_position_marker);
-                //Create a HTML marker and add it to the map.
                 user_position_marker = new atlas.HtmlMarker({
                     htmlContent: '<div class="pulseIcon"></div>',
                     position: user_position
                 });
                 map.markers.add(user_position_marker);
-                //Center the map on the users position.
-                map.setCamera({
-                    center: user_position,
-                    // zoom: 15
-                });
             }
 
         } catch (err) {
@@ -52,8 +49,44 @@ $(document).ready(function () {
         }
     }
 
+    function addControls() {
+        map.controls.remove(controls);
+        controls = [];
+        var controlStyle = "light";
+        // Zoom.
+        controls.push(new atlas.control.ZoomControl({
+            zoomDelta: 1,
+            style: controlStyle
+        }));
+        // Pitch.
+        controls.push(new atlas.control.PitchControl({
+            pitchDegreesDelta: 5,
+            style: controlStyle
+        }));
+        // Rotate.
+        controls.push(new atlas.control.CompassControl({
+            rotationDegreesDelta: 10,
+            style: controlStyle
+        }));
+        // Theme.
+        controls.push(new atlas.control.StyleControl({
+            style: controlStyle
+        }));
+        map.controls.add(controls, {
+            position: "top-right"
+        });
+    }
+
     map.events.add('ready', function () {
+        //Add controls to the map.
+        map.controls.add(
+            new BringDataIntoViewControl({
+                units: 'metric'
+            }), {
+                position: 'top-left'
+            });
+
         ready = true;
     });
-
+    map.events.add('ready', addControls);
 });
