@@ -30,7 +30,8 @@ $(document).ready(function () {
 
             // Location.
             document.getElementById("location").innerHTML = "Lon: " + obj.lon + ", Lat: " + obj.lat;
-            
+            user_position = [obj.lon, obj.lat];
+
             if (ready) {
                 map.markers.remove(user_position_marker);
                 //Create a HTML marker and add it to the map.
