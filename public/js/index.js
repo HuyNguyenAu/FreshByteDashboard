@@ -22,6 +22,11 @@ function config(title, time, data, primary_colour, background_colour) {
                 }]
         },
         options: {
+            layout: {
+                padding: {
+                    top: 1
+                }
+            },
             legend: {
                 display: false
             },
@@ -214,7 +219,7 @@ $(document).ready(function () {
             }
             if (lat_data.length > maxLen) {
                 lat_data.shift();
-            }         
+            }
 
             // Update the charts to reflect data array changes.
             temp_chart.update();
