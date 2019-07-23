@@ -43,7 +43,7 @@ $(document).ready(function () {
                 //Center the map on the users position.
                 map.setCamera({
                     center: user_position,
-                    zoom: 15
+                    // zoom: 15
                 });
             }
 
