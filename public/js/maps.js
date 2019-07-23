@@ -1,4 +1,14 @@
 $(document).ready(function () {
+    // Azure Maps.
+    var ready = false, user_position_marker, user_position = [144.96292, -37.80737],
+        map = new atlas.Map('LoadMap', {
+            center: user_position,
+            authOptions: {
+                authType: 'subscriptionKey',
+                subscriptionKey: 'Ax6CHWnkkH7Zjt1uoQvH8TfBspFTMkPPybuLWF0V8_M'
+            }
+        });
+
     var webSocket = new WebSocket('wss://' + location.host);
     webSocket.onopen = function () {
         console.log('Successfully connect WebSocket');
@@ -20,35 +30,29 @@ $(document).ready(function () {
 
             // Location.
             document.getElementById("location").innerHTML = "Lon: " + obj.lon + ", Lat: " + obj.lat;
+            
+            if (ready) {
+                map.markers.remove(user_position_marker);
+                //Create a HTML marker and add it to the map.
+                user_position_marker = new atlas.HtmlMarker({
+                    htmlContent: '<div class="pulseIcon"></div>',
+                    position: user_position
+                });
+                map.markers.add(user_position_marker);
+                //Center the map on the users position.
+                map.setCamera({
+                    center: user_position,
+                    zoom: 15
+                });
+            }
+
         } catch (err) {
             console.error(err);
         }
     }
 
-    // Azure Maps.
-    var map, marker, user_position =  [144.96292, -37.80737];
-
-    //Initialize a map instance.
-    map = new atlas.Map('LoadMap', {
-        center: user_position,
-        //Add your Azure Maps subscription key to the map SDK. Get an Azure Maps key at https://azure.com/maps
-        authOptions: {
-            authType: 'subscriptionKey',
-            subscriptionKey: 'Ax6CHWnkkH7Zjt1uoQvH8TfBspFTMkPPybuLWF0V8_M'
-        }
-    });
-    //Wait until the map resources are ready.
     map.events.add('ready', function () {
-        //Create a HTML marker and add it to the map.
-        marker = new atlas.HtmlMarker({
-            htmlContent: '<div class="pulseIcon"></div>',
-            position: user_position
-        });
-        map.markers.add(marker);
-        //Center the map on the users position.
-        map.setCamera({
-            center: user_position,
-            zoom: 15
-        });
+        ready = true;
     });
+
 });
