@@ -19,21 +19,7 @@ $(document).ready(function () {
             }
 
             // Location.
-            // !!! Need to figure out a way to better handle location.
             document.getElementById("location").innerHTML = "Lon: " + obj.lon + ", Lat: " + obj.lat;
-            if (obj.lon) {
-                lon_data.push(obj.lon);
-            }
-            if (lon_data.length > maxLen) {
-                lon_data.shift();
-            }
-
-            if (obj.lat) {
-                lat_data.push(obj.lat);
-            }
-            if (lat_data.length > maxLen) {
-                lat_data.shift();
-            }          
         } catch (err) {
             console.error(err);
         }
