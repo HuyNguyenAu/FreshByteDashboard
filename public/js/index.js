@@ -107,7 +107,7 @@ $(document).ready(function() {
 
             // Make sure the MQTT message contains all of the following fields.
             // Else, it's not what we want.
-            if (!obj.time || !obj.Temperature || !obj.Humidity || !obj.O2 || !obj.CO2 || !obj.Accel ||
+            if (!obj.time || !obj.Temp || !obj.Humidity || !obj.O2 || !obj.CO2 || !obj.Accel ||
                 !obj.ShelfLife || !obj.Ethylene || !obj.Lon || !obj.Lat) {
                 console.log('Message contains unexpected contents: ' + obj);
                 return;
@@ -122,13 +122,13 @@ $(document).ready(function() {
             }
 
             // Temp.
-            if (obj.Temperature) {
-                document.getElementById("temp").textContent = obj.Temperature + "°C";
+            if (obj.Temp) {
+                document.getElementById("temp").textContent = obj.Temp + "°C";
 
                 if (temp_data.length > 1) {
-                    UpdateDelta(delta(obj.Temperature, temp_data[temp_data.length - 1]), "temp-delta");
+                    UpdateDelta(delta(obj.Temp, temp_data[temp_data.length - 1]), "temp-delta");
                 }
-                temp_data.push(obj.Temperature);
+                temp_data.push(obj.Temp);
             }
             if (temp_data.length > maxLen) {
                 temp_data.shift();
