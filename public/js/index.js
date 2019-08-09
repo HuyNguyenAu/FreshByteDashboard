@@ -160,7 +160,7 @@ $(document).ready(function() {
 
             // CO2.
             if (obj.CO2) {
-                document.getElementById("co2").textContent = obj.CO2 + "%";
+                document.getElementById("co2").textContent = obj.CO2 + " ppm";
                 if (co2_data.length > 1) {;
                     UpdateDelta(delta(obj.CO2, co2_data[co2_data.length - 1]), "co2-delta");
                 }
