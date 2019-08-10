@@ -107,11 +107,11 @@ $(document).ready(function() {
 
             // Make sure the MQTT message contains all of the following fields.
             // Else, it's not what we want.
-            if (!obj.time || !obj.Temp || !obj.Humidity || !obj.O2 || !obj.CO2 || !obj.Accel ||
-                !obj.ShelfLife || !obj.Ethylene || !obj.Lon || !obj.Lat) {
-                console.log('Message contains unexpected contents: ' + obj);
-                return;
-            }
+            // if (!obj.time || !obj.Temp || !obj.Humidity || !obj.O2 || !obj.CO2 || !obj.Accel ||
+            //     !obj.ShelfLife || !obj.Ethylene || !obj.Lon || !obj.Lat) {
+            //     console.log('Message contains unexpected contents: ' + obj.error);
+            //     return;
+            // }
 
             // Update the data and dashboard elements.
             if (obj.time) {
