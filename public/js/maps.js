@@ -25,17 +25,17 @@ $(document).ready(function() {
 
             // Make sure the MQTT message contains all of the following fields.
             // // Else, it's not what we want.
-            // if (!obj.time || !obj.temp || !obj.humidity || !obj.o2 || !obj.co2 || !obj.accel
-            //     || !obj.shelf_life || !obj.ethylene || !obj.lon || !obj.lat) {
+            // if (!obj.time || !obj.temp || !obj.humidity || !obj.o2 || !obj.co2 || !obj.accel ||
+            //     !obj.shelf_life || !obj.ethylene || !obj.lon || !obj.lat) {
             //     console.log('Message contains unexpected contents: ' + obj);
             //     return;
             // }
 
             // Location.
-            document.getElementById("location").innerHTML = "Lon: " + obj.lon + ", Lat: " + obj.lat;
+            document.getElementById("location").innerHTML = "Lon: " + obj.Lon + ", Lat: " + obj.Lat;
 
             // !!! IDK if this is the best way to implement live tracking.
-            user_position = [obj.lon, obj.lat];
+            user_position = [obj.Lon, obj.Lat];
 
             if (ready) {
                 map.markers.remove(user_position_marker);
