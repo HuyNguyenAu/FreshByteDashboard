@@ -114,8 +114,8 @@ $(document).ready(function() {
             // }
 
             // Update the data and dashboard elements.
-            if (obj.time) {
-                time_data.push(obj.time);
+            if (obj.Time) {
+                time_data.push(obj.Time);
             }
             if (time_data.length > maxLen) {
                 time_data.shift();
