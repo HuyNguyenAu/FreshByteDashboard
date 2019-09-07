@@ -1,3 +1,5 @@
+const dotenv = require('dotenv');
+
 // Create config with specified parameters, keeps the core code simple.
 function config(title, time, data, primary_colour, background_colour) {
     return {
