@@ -69,6 +69,13 @@ function UpdateDelta(delta_value, id) {
     }
 }
 
+var ws = new WebSocket('wss://' + location.host);
+ws.on('open', function open() {});
+
+ws.on('message', function incoming(data) {
+    console.log(data);
+});
+
 $(document).ready(function() {
     var time_data = [],
         temp_data = [],

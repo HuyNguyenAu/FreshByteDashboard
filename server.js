@@ -67,3 +67,7 @@ function normalizePort(val) {
 
     return false;
 }
+
+setTimeout(function() {
+    wss.broadcast(JSON.stringify("sending data"));
+}, 5000);
