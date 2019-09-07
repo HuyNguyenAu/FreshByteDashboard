@@ -76,6 +76,7 @@ ws.onopen = function() {
 
 ws.onmessage = function(data) {
     console.log(data.data);
+    ws.send("asd");
 }
 
 $(document).ready(function() {
