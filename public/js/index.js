@@ -74,9 +74,22 @@ ws.onopen = function() {
     console.log('Successfully connect WebSocket');
 }
 
+ws.broadcast = function broadcast(data) {
+    ws.clients.forEach(function each(client) {
+        if (client.readyState === WebSocket.OPEN) {
+            try {
+                console.log('sending data ' + data);
+                client.send(data);
+            } catch (e) {
+                console.error(e);
+            }
+        }
+    });
+};
+
 ws.onmessage = function(data) {
     console.log(data.data);
-    ws.send(JSON.stringify("asd"));
+    ws.broadcast(JSON.stringify("asd"));
 }
 
 $(document).ready(function() {
