@@ -33,9 +33,12 @@ wss.broadcast = function broadcast(data) {
     });
 };
 
+// Wait for client to request.
 wss.on('connection', function connection(ws) {
     ws.on('message', function incoming(message) {
-        ws.send(JSON.stringify(message));
+        if (message == "sql") {
+            ws.send(JSON.stringify(message));
+        }
     });
 });
 
