@@ -12,137 +12,141 @@
     <link rel="stylesheet" href="css/index.css" />
 </head>
 
-<body>
-    <div class="wrapper">
-        <!-- Navigation Bar -->
-        <nav id="sidebar">
-            <div class="container-fluid mobile">
-                <div id="brand-name">
-                    <a href="index.html">
-                        <img id="brand-logo" src="imgs/logo.png"> FreshByte
-                    </a>
+<?php
+echo "Hello World!";
+?>
+
+    <body>
+        <div class="wrapper">
+            <!-- Navigation Bar -->
+            <nav id="sidebar">
+                <div class="container-fluid mobile">
+                    <div id="brand-name">
+                        <a href="index.html">
+                            <img id="brand-logo" src="imgs/logo.png"> FreshByte
+                        </a>
+                    </div>
+                    <ul class="nav flex-column mobile">
+                        <li class="sidebar-header">
+                            Navigation
+                        </li>
+                        <li class="nav-item active">
+                            <a class="active" href="index.html">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="html/maps.html">Maps</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="html/about.html">About</a>
+                        </li>
+                    </ul>
+                    <div class="line-close"></div>
                 </div>
-                <ul class="nav flex-column mobile">
-                    <li class="sidebar-header">
-                        Navigation
-                    </li>
-                    <li class="nav-item active">
-                        <a class="active" href="index.html">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="html/maps.html">Maps</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="html/about.html">About</a>
-                    </li>
-                </ul>
+            </nav>
+            <!-- Main Content -->
+            <div id="content">
+                <!-- Title -->
+                <h1 class="content-header">Overview</h1>
                 <div class="line-close"></div>
+                <!-- Cards -->
+                <div class="stat-container">
+                    <div>
+                        <span class="stat-header">Humidity</span>
+                        <div>
+                            <h2 class="stat-value" id="humidity">
+                                0%
+                            </h2>
+                            <small class="stat-delta" id="humidity-delta">0%</small>
+                        </div>
+                        <canvas id="humidity-chart"></canvas>
+                    </div>
+                    <div>
+                        <span class="stat-header">O2</span>
+                        <div>
+                            <h2 class="stat-value" id="o2">
+                                0%
+                            </h2>
+                            <small class="stat-delta" id="o2-delta">0%</small>
+                        </div>
+                        <canvas id="o2-chart"></canvas>
+                    </div>
+                    <div>
+                        <span class="stat-header">CO2</span>
+                        <div>
+                            <h2 class="stat-value" id="co2">
+                                0 ppm
+                            </h2>
+                            <small class="stat-delta" id="co2-delta">0%</small>
+                        </div>
+                        <canvas id="co2-chart"></canvas>
+                    </div>
+                    <div>
+                        <span class="stat-header">Accel</span>
+                        <div>
+                            <h2 class="stat-value" id="accel">
+                                0 |m/s^2|
+                            </h2>
+                            <small class="stat-delta" id="accel-delta">0%</small>
+                        </div>
+                        <canvas id="accel-chart"></canvas>
+                    </div>
+                    <div>
+                        <span class="stat-header">Shelf Life</span>
+                        <div>
+                            <h2 class="stat-value" id="shelf-life">
+                                0 days
+                            </h2>
+                            <small class="stat-delta" id="shelf-life-delta">0%</small>
+                        </div>
+                        <canvas id="shelf-life-chart"></canvas>
+                    </div>
+                    <div>
+                        <span class="stat-header">Ethylene</span>
+                        <div>
+                            <h2 class="stat-value" id="ethylene">
+                                0 pmol/(kgs)
+                            </h2>
+                            <small class="stat-delta" id="ethylene-delta">0%</small>
+                        </div>
+                        <canvas id="ethylene-chart"></canvas>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <!-- Most important stat, temp. -->
+                <div class="stat-container">
+                    <div>
+                        <span class="stat-header">Temperature</span>
+                        <div>
+                            <h2 class="stat-value" id="temp">
+                                0°C
+                            </h2>
+                            <small class="stat-delta" id="temp-delta">0%</small>
+                        </div>
+                        <canvas id="temp-chart"></canvas>
+                    </div>
+                </div>
+                <div class="line"></div>
+                <!-- Location -->
+                <div class="stat-container">
+                    <div>
+                        <span class="stat-header">Coordinates</span>
+                        <div>
+                            <h2 class="stat-value" id="location">
+                                Lon: 0, Lat: 0
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="line"></div>
             </div>
-        </nav>
-        <!-- Main Content -->
-        <div id="content">
-            <!-- Title -->
-            <h1 class="content-header">Overview</h1>
-            <div class="line-close"></div>
-            <!-- Cards -->
-            <div class="stat-container">
-                <div>
-                    <span class="stat-header">Humidity</span>
-                    <div>
-                        <h2 class="stat-value" id="humidity">
-                            0%
-                        </h2>
-                        <small class="stat-delta" id="humidity-delta">0%</small>
-                    </div>
-                    <canvas id="humidity-chart"></canvas>
-                </div>
-                <div>
-                    <span class="stat-header">O2</span>
-                    <div>
-                        <h2 class="stat-value" id="o2">
-                            0%
-                        </h2>
-                        <small class="stat-delta" id="o2-delta">0%</small>
-                    </div>
-                    <canvas id="o2-chart"></canvas>
-                </div>
-                <div>
-                    <span class="stat-header">CO2</span>
-                    <div>
-                        <h2 class="stat-value" id="co2">
-                            0 ppm
-                        </h2>
-                        <small class="stat-delta" id="co2-delta">0%</small>
-                    </div>
-                    <canvas id="co2-chart"></canvas>
-                </div>
-                <div>
-                    <span class="stat-header">Accel</span>
-                    <div>
-                        <h2 class="stat-value" id="accel">
-                            0 |m/s^2|
-                        </h2>
-                        <small class="stat-delta" id="accel-delta">0%</small>
-                    </div>
-                    <canvas id="accel-chart"></canvas>
-                </div>
-                <div>
-                    <span class="stat-header">Shelf Life</span>
-                    <div>
-                        <h2 class="stat-value" id="shelf-life">
-                            0 days
-                        </h2>
-                        <small class="stat-delta" id="shelf-life-delta">0%</small>
-                    </div>
-                    <canvas id="shelf-life-chart"></canvas>
-                </div>
-                <div>
-                    <span class="stat-header">Ethylene</span>
-                    <div>
-                        <h2 class="stat-value" id="ethylene">
-                            0 pmol/(kgs)
-                        </h2>
-                        <small class="stat-delta" id="ethylene-delta">0%</small>
-                    </div>
-                    <canvas id="ethylene-chart"></canvas>
-                </div>
-            </div>
-            <div class="line"></div>
-            <!-- Most important stat, temp. -->
-            <div class="stat-container">
-                <div>
-                    <span class="stat-header">Temperature</span>
-                    <div>
-                        <h2 class="stat-value" id="temp">
-                            0°C
-                        </h2>
-                        <small class="stat-delta" id="temp-delta">0%</small>
-                    </div>
-                    <canvas id="temp-chart"></canvas>
-                </div>
-            </div>
-            <div class="line"></div>
-            <!-- Location -->
-            <div class="stat-container">
-                <div>
-                    <span class="stat-header">Coordinates</span>
-                    <div>
-                        <h2 class="stat-value" id="location">
-                            Lon: 0, Lat: 0
-                        </h2>
-                    </div>
-                </div>
-            </div>
-            <div class="line"></div>
         </div>
-    </div>
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous" type="text/javascript"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous" type="text/javascript"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous" type="text/javascript"></script>
-    <!-- Custom Script -->
-    <script src="js/index.js" type="text/javascript"></script>
-</body>
+        <!-- Scripts -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous" type="text/javascript"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous" type="text/javascript"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js" integrity="sha256-Uv9BNBucvCPipKQ2NS9wYpJmi8DTOEfTA/nH2aoJALw=" crossorigin="anonymous" type="text/javascript"></script>
+        <!-- Custom Script -->
+        <script src="js/index.js" type="text/javascript"></script>
+    </body>
 
 </html>
