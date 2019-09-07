@@ -6,11 +6,26 @@
     "start": "node server.js"
   },
   "dependencies": {
+    "async": "^2.6.2",
     "azure-event-hubs": "2.1.1",
     "dotenv": "8.0.0",
     "express": "4.17.1",
     "moment": "2.24.0  ",
-    "mysql": "^2.17.1",
+    "tedious": "^5.0.3",
     "ws": "7.1.1"
-  }
+  },
+  "description": "A simple and clean dashboard for an RMIT Capstone project.\r ![](https://raw.githubusercontent.com/HuyNguyenAu/FreshByteDashboard/master/preview.png)",
+  "main": "server.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HuyNguyenAu/FreshByteDashboard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HuyNguyenAu/FreshByteDashboard/issues"
+  },
+  "homepage": "https://github.com/HuyNguyenAu/FreshByteDashboard#readme"
 }

@@ -6,7 +6,8 @@ const path = require('path');
 const iotHubClient = require('./IoTHub/iot-hub.js');
 const dotenv = require('dotenv');
 const app = express();
-const mysql = require('mysql');
+var Connection = require('tedious').Connection;
+var Request = require('tedious').Request;
 
 dotenv.config();
 
@@ -71,41 +72,47 @@ function normalizePort(val) {
 
 setTimeout(function() {
     var config = {
-        host: process.env['Azure.SQL.Database.ServerName'],
-        user: process.env['Azure.SQL.Database.UserName'],
-        password: process.env['Azure.SQL.Database.Password'],
-        database: process.env['Azure.SQL.Database.DataBase'],
-        port: 3306,
-        ssl: true
+        authentication: {
+            options: {
+                userName: process.env['Azure.SQL.Database.UserName'],
+                password: process.env['Azure.SQL.Database.Password']
+            },
+            type: 'default'
+        },
+        server: process.env['Azure.SQL.Database.ServerName'],
+        options: {
+            database: process.env['Azure.SQL.Database.DataBase'],
+            encrypt: true
+        }
     };
 
-    const conn = new mysql.createConnection(config);
+    const conn = new Connection(config);
 
-    conn.connect(
-        function(err) {
-            if (err) {
-                wss.broadcast(JSON.stringify(err));
-                throw err;
-            } else {
-                wss.broadcast(JSON.stringify("Connection established."));
-                readData();
+    conn.on('connect', function(err) {
+        if (err) {
+            wss.broadcast(JSON.stringify(err));
+        } else {
+            queryDatabase();
+        }
+    });
+
+    function queryDatabase() {
+        wss.broadcast(JSON.stringify('Reading rows from the Table...'));
+
+        // Read all rows from table
+        var request = new Request(
+            "SELECT * FROM Telemetry ",
+            function(err, rowCount, rows) {
+                wss.broadcast(JSON.stringify(rowCount + ' row(s) returned'));
+                process.exit();
             }
-        });
+        );
 
-    function readData() {
-        conn.query('SELECT * FROM Telemetry',
-            function(err, results, fields) {
-                if (err) throw err;
-                else console.log('Selected ' + results.length + ' row(s).');
-                for (i = 0; i < results.length; i++) {
-                    wss.broadcast(JSON.stringify(results[i]));
-                }
-                wss.broadcast(JSON.stringify('Done.'));
-            })
-        conn.end(
-            function(err) {
-                if (err) throw err;
-                else wss.broadcast(JSON.stringify('Closing connection.'))
+        request.on('row', function(columns) {
+            columns.forEach(function(column) {
+                wss.broadcast(JSON.stringify("%s\t%s", column.metadata.colName, column.value));
             });
-    };
+        });
+        connection.execSql(request);
+    }
 }, 1000);
