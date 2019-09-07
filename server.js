@@ -68,6 +68,4 @@ function normalizePort(val) {
     return false;
 }
 
-setTimeout(function() {
-    wss.broadcast(JSON.stringify("sending data"));
-}, 5000);
+wss.broadcast(JSON.stringify(process.env['Azure.SQL.Database.Test']));
