@@ -6,6 +6,7 @@ const path = require('path');
 const iotHubClient = require('./IoTHub/iot-hub.js');
 const dotenv = require('dotenv');
 const app = express();
+const mysql = require('mysql');
 
 dotenv.config();
 
