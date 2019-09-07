@@ -6,6 +6,7 @@ const path = require('path');
 const iotHubClient = require('./IoTHub/iot-hub.js');
 const dotenv = require('dotenv');
 const app = express();
+const app1 = express();
 var Connection = require('tedious').Connection;
 var Request = require('tedious').Request;
 
@@ -16,12 +17,33 @@ app.use(function(req, res /*, next*/ ) {
     res.redirect('/');
 });
 
+app1.use(express.static(path.join(__dirname, 'public')));
+app1.use(function(req, res /*, next*/ ) {
+    res.redirect('/mqtt');
+});
+
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
+
+const server1 = http.createServer(app1);
+const wss1 = new WebSocket.Server({ server1 });
 
 // Broadcast to all.
 wss.broadcast = function broadcast(data) {
     wss.clients.forEach(function each(client) {
+        if (client.readyState === WebSocket.OPEN) {
+            try {
+                console.log('sending data ' + data);
+                client.send(data);
+            } catch (e) {
+                console.error(e);
+            }
+        }
+    });
+};
+
+wss1.broadcast = function broadcast(data) {
+    wss1.clients.forEach(function each(client) {
         if (client.readyState === WebSocket.OPEN) {
             try {
                 console.log('sending data ' + data);
@@ -73,49 +95,48 @@ function normalizePort(val) {
 // https://docs.microsoft.com/en-us/azure/sql-database/sql-database-connect-query-nodejs
 setTimeout(function() {
     // Create connection to database
-    // var config = {
-    //     authentication: {
-    //         options: {
-    //             userName: process.env['Azure.SQL.Database.UserName'],
-    //             password: process.env['Azure.SQL.Database.Password']
-    //         },
-    //         type: 'default'
-    //     },
-    //     server: process.env['Azure.SQL.Database.ServerName'],
-    //     options: {
-    //         database: process.env['Azure.SQL.Database.DataBase'],
-    //         encrypt: true
-    //     }
-    // }
-    // var connection = new Connection(config);
+    var config = {
+        authentication: {
+            options: {
+                userName: process.env['Azure.SQL.Database.UserName'],
+                password: process.env['Azure.SQL.Database.Password']
+            },
+            type: 'default'
+        },
+        server: process.env['Azure.SQL.Database.ServerName'],
+        options: {
+            database: process.env['Azure.SQL.Database.DataBase'],
+            encrypt: true
+        }
+    }
+    var connection = new Connection(config);
 
-    // // Attempt to connect and execute queries if connection goes through
-    // connection.on('connect', function(err) {
-    //     if (err) {
-    //         console.log(err)
-    //     } else {
-    //         queryDatabase()
-    //     }
-    // });
+    // Attempt to connect and execute queries if connection goes through
+    connection.on('connect', function(err) {
+        if (err) {
+            console.log(err)
+        } else {
+            queryDatabase()
+        }
+    });
 
-    // function queryDatabase() {
-    //     console.log('Reading rows from the Table...');
+    function queryDatabase() {
+        console.log('Reading rows from the Table...');
 
-    //     // Read all rows from table
-    //     var request = new Request(
-    //         "select * from Telemetry",
-    //         function(err, rowCount, rows) {
-    //             console.log(rowCount + ' row(s) returned');
-    //             process.exit();
-    //         }
-    //     );
+        // Read all rows from table
+        var request = new Request(
+            "select * from Telemetry",
+            function(err, rowCount, rows) {
+                console.log(rowCount + ' row(s) returned');
+                process.exit();
+            }
+        );
 
-    //     request.on('row', function(columns) {
-    //         columns.forEach(function(column) {
-    //             wss.broadcast(JSON.stringify([column.metadata.colName, column.value]));
-    //         });
-    //     });
-    //     // connection.execSql(request);     
-    // }
-    wss.broadcast(JSOn.stringify(server));
+        request.on('row', function(columns) {
+            columns.forEach(function(column) {
+                wss1.broadcast(JSON.stringify([column.metadata.colName, column.value]));
+            });
+        });
+        connection.execSql(request);
+    }
 }, 1000);

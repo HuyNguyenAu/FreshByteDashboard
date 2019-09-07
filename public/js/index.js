@@ -70,7 +70,7 @@ function UpdateDelta(delta_value, id) {
 }
 
 // Okay this is really bad. I need to fix this.
-var ws = new WebSocket('wss://' + location.host);
+var ws = new WebSocket('wss://' + location.host + '/sql');
 ws.onopen = function() {
     console.log('Successfully connect WebSocket');
 }
@@ -99,7 +99,7 @@ $(document).ready(function() {
         shelf_life_chart = chart("shelf-life-chart", "Shelf Life (Days)", time_data, shelf_life_data, "rgba(255, 201, 14, 1)", "rgba(255, 201, 14, 0.4)"),
         ethylene_chart = chart("ethylene-chart", "Ethyene pmol/(kgs)", time_data, ethylene_data, "rgba(128, 64, 64, 1)", "rgba(128, 64, 64, 0.4)");
 
-    var webSocket = new WebSocket('wss://' + location.host);
+    var webSocket = new WebSocket('wss://' + location.host + '/');
     webSocket.onopen = function() {
         console.log('Successfully connect WebSocket');
     }
