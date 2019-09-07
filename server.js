@@ -13,7 +13,7 @@ dotenv.config();
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req, res /*, next*/ ) {
-    res.redirect('/');
+    res.redirect('/t');
 });
 
 const server = http.createServer(app);
@@ -70,19 +70,20 @@ function normalizePort(val) {
     return false;
 }
 
+// https://docs.microsoft.com/en-us/azure/sql-database/sql-database-connect-query-nodejs
 setTimeout(function() {
     // Create connection to database
     var config = {
         authentication: {
             options: {
-                userName: process.env['Azure.SQL.Database.UserName'], // update me
-                password: process.env['Azure.SQL.Database.Password'] // update me
+                userName: process.env['Azure.SQL.Database.UserName'],
+                password: process.env['Azure.SQL.Database.Password']
             },
             type: 'default'
         },
-        server: process.env['Azure.SQL.Database.ServerName'], // update me
+        server: process.env['Azure.SQL.Database.ServerName'],
         options: {
-            database: process.env['Azure.SQL.Database.DataBase'], //update me
+            database: process.env['Azure.SQL.Database.DataBase'],
             encrypt: true
         }
     }
