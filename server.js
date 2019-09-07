@@ -31,7 +31,10 @@ wss.broadcast = function broadcast(data) {
     });
 };
 
-wss.broadcast(process.env['Azure.SQL.Database.Test']);
+const ws = new WebSocket('wss://' + location.host + '/test');
+ws.on('open', function open() {
+    ws.send('test');
+});
 
 var iotHubReader = new iotHubClient(process.env['Azure.IoT.IoTHub.ConnectionString'], process.env['Azure.IoT.IoTHub.ConsumerGroup']);
 iotHubReader.startReadMessage(function(obj, date) {
