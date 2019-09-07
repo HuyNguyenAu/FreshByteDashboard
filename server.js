@@ -31,16 +31,7 @@ wss.broadcast = function broadcast(data) {
     });
 };
 
-const ws = new WebSocket("wss://fresh-byte.azurewebsites.net");
-ws.on('open', function open() {
-    const array = new Float32Array(5);
-
-    for (var i = 0; i < array.length; ++i) {
-        array[i] = i / 2;
-    }
-
-    ws.send(array);
-});
+wss.broadcast("Hellow");
 
 var iotHubReader = new iotHubClient(process.env['Azure.IoT.IoTHub.ConnectionString'], process.env['Azure.IoT.IoTHub.ConsumerGroup']);
 iotHubReader.startReadMessage(function(obj, date) {
