@@ -31,7 +31,16 @@ wss.broadcast = function broadcast(data) {
     });
 };
 
-wss.broadcast(JSON.stringify(Object.assign("obj", { Time: moment.utc(date).format('YYYY:MM:DD[T]HH:mm:ss') })));
+wss.clients.forEach(function each(client) {
+    if (client.readyState === WebSocket.OPEN) {
+        try {
+            console.log('sending data ' + data);
+            client.send("sending data");
+        } catch (e) {
+            console.error(e);
+        }
+    }
+});
 
 var iotHubReader = new iotHubClient(process.env['Azure.IoT.IoTHub.ConnectionString'], process.env['Azure.IoT.IoTHub.ConsumerGroup']);
 iotHubReader.startReadMessage(function(obj, date) {
