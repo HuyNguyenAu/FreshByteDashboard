@@ -71,46 +71,47 @@ function normalizePort(val) {
 }
 
 setTimeout(function() {
+    // Create connection to database
     var config = {
         authentication: {
             options: {
-                userName: process.env['Azure.SQL.Database.UserName'],
-                password: process.env['Azure.SQL.Database.Password']
+                userName: 'fresh-byte', // update me
+                password: 'DataBase0!' // update me
             },
             type: 'default'
         },
-        server: process.env['Azure.SQL.Database.ServerName'],
+        server: 'fresh-byte.database.windows.net', // update me
         options: {
-            database: process.env['Azure.SQL.Database.DataBase'],
+            database: 'fresh-byte-db', //update me
             encrypt: true
         }
-    };
+    }
+    var connection = new Connection(config);
 
-    const conn = new Connection(config);
-
-    conn.on('connect', function(err) {
+    // Attempt to connect and execute queries if connection goes through
+    connection.on('connect', function(err) {
         if (err) {
-            wss.broadcast(JSON.stringify(err));
+            console.log(err)
         } else {
-            queryDatabase();
+            queryDatabase()
         }
     });
 
     function queryDatabase() {
-        wss.broadcast(JSON.stringify('Reading rows from the Table...'));
+        console.log('Reading rows from the Table...');
 
         // Read all rows from table
         var request = new Request(
-            "SELECT * FROM Telemetry ",
+            "select * from Telemetry",
             function(err, rowCount, rows) {
-                wss.broadcast(JSON.stringify(rowCount + ' row(s) returned'));
+                console.log(rowCount + ' row(s) returned');
                 process.exit();
             }
         );
 
         request.on('row', function(columns) {
             columns.forEach(function(column) {
-                wss.broadcast(JSON.stringify("%s\t%s", column.metadata.colName, column.value));
+                console.log("%s\t%s", column.metadata.colName, column.value);
             });
         });
         connection.execSql(request);
