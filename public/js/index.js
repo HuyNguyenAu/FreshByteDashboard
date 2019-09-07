@@ -70,7 +70,7 @@ function UpdateDelta(delta_value, id) {
 }
 
 // Okay this is really bad. I need to fix this.
-var ws = new WebSocket('wss://' + location.host + '/sql');
+var ws = new WebSocket('wss://' + location.host);
 ws.onopen = function() {
     console.log('Successfully connect WebSocket');
 }

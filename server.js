@@ -6,7 +6,6 @@ const path = require('path');
 const iotHubClient = require('./IoTHub/iot-hub.js');
 const dotenv = require('dotenv');
 const app = express();
-const app1 = express();
 var Connection = require('tedious').Connection;
 var Request = require('tedious').Request;
 
@@ -17,33 +16,12 @@ app.use(function(req, res /*, next*/ ) {
     res.redirect('/');
 });
 
-app1.use(express.static(path.join(__dirname, 'public')));
-app1.use(function(req, res /*, next*/ ) {
-    res.redirect('/mqtt');
-});
-
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
-
-const server1 = http.createServer(app1);
-const wss1 = new WebSocket.Server({ server1 });
 
 // Broadcast to all.
 wss.broadcast = function broadcast(data) {
     wss.clients.forEach(function each(client) {
-        if (client.readyState === WebSocket.OPEN) {
-            try {
-                console.log('sending data ' + data);
-                client.send(data);
-            } catch (e) {
-                console.error(e);
-            }
-        }
-    });
-};
-
-wss1.broadcast = function broadcast(data) {
-    wss1.clients.forEach(function each(client) {
         if (client.readyState === WebSocket.OPEN) {
             try {
                 console.log('sending data ' + data);
@@ -134,7 +112,7 @@ setTimeout(function() {
 
         request.on('row', function(columns) {
             columns.forEach(function(column) {
-                wss1.broadcast(JSON.stringify([column.metadata.colName, column.value]));
+                wss.broadcast(JSON.stringify([column.metadata.colName, column.value]));
             });
         });
         connection.execSql(request);
