@@ -76,7 +76,6 @@ ws.onopen = function() {
 
 ws.onmessage = function(data) {
     console.log(data.data);
-    ws.broadcast(JSON.stringify("asd"));
 }
 
 $(document).ready(function() {
