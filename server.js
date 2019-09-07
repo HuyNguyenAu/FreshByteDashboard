@@ -110,11 +110,17 @@ setTimeout(function() {
             }
         );
 
+        var data = [];
+
         request.on('row', function(columns) {
+            var obj = {};
             columns.forEach(function(column) {
-                wss.broadcast(JSON.stringify([column.metadata.colName, column.value]));
+                obj[column.metadata.colName] = column.value;
             });
+            data.push(obj);
         });
+
+        wss.broadcast(JSON.stringify(data));
         connection.execSql(request);
     }
 }, 1000);
