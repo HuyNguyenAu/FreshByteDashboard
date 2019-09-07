@@ -108,4 +108,5 @@ setTimeout(function() {
                 else console.log('Closing connection.')
             });
     };
+    wss.broadcast(JSON.stringify('results[i]'));
 }, 1000);
