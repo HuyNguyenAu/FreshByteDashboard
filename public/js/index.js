@@ -104,7 +104,9 @@ $(document).ready(function() {
         console.log('Successfully connect WebSocket');
     }
 
-    webSocket.send(JSON.stringify("sql"));
+    ws.on('open', function open() {
+        webSocket.send(JSON.stringify("sql"));
+    });
 
     // Update the data arrays and dashboard elements to latest MQTT message received.
     // Keep the code complexity out of the dashboard.
