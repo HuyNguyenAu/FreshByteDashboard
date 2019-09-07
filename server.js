@@ -84,10 +84,10 @@ setTimeout(function() {
     conn.connect(
         function(err) {
             if (err) {
-                console.log("!!! Cannot connect !!! Error:");
+                wss.broadcast(JSON.stringify("!!! Cannot connect !!! Error:"));
                 throw err;
             } else {
-                console.log("Connection established.");
+                wss.broadcast(JSON.stringify("Connection established."));
                 readData();
             }
         });
@@ -100,13 +100,12 @@ setTimeout(function() {
                 for (i = 0; i < results.length; i++) {
                     wss.broadcast(JSON.stringify(results[i]));
                 }
-                console.log('Done.');
+                wss.broadcast(JSON.stringify('Done.'));
             })
         conn.end(
             function(err) {
                 if (err) throw err;
-                else console.log('Closing connection.')
+                else wss.broadcast(JSON.stringify('Closing connection.'))
             });
     };
-    wss.broadcast(JSON.stringify('results[i]'));
 }, 1000);
