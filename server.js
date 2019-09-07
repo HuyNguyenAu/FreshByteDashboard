@@ -75,14 +75,14 @@ setTimeout(function() {
     var config = {
         authentication: {
             options: {
-                userName: 'fresh-byte', // update me
-                password: 'DataBase0!' // update me
+                userName: process.env['Azure.SQL.Database.UserName'], // update me
+                password: process.env['Azure.SQL.Database.Password'] // update me
             },
             type: 'default'
         },
-        server: 'fresh-byte.database.windows.net', // update me
+        server: process.env['Azure.SQL.Database.ServerName'], // update me
         options: {
-            database: 'fresh-byte-db', //update me
+            database: process.env['Azure.SQL.Database.DataBase'], //update me
             encrypt: true
         }
     }
