@@ -31,7 +31,7 @@ wss.broadcast = function broadcast(data) {
     });
 };
 
-const ws = new WebSocket('wss://' + location.host + '/test');
+const ws = new WebSocket('wss://www.fresh-byte.azurewebsites.net/test');
 ws.on('open', function open() {
     ws.send('test');
 });
