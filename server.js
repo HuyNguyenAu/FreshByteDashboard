@@ -37,7 +37,55 @@ wss.broadcast = function broadcast(data) {
 wss.on('connection', function connection(ws) {
     ws.on('message', function incoming(message) {
         if (message == "sql") {
-            ws.send(JSON.stringify(message));
+            // https://docs.microsoft.com/en-us/azure/sql-database/sql-database-connect-query-nodejs
+            // Create connection to database
+            var config = {
+                authentication: {
+                    options: {
+                        userName: process.env['Azure.SQL.Database.UserName'],
+                        password: process.env['Azure.SQL.Database.Password']
+                    },
+                    type: 'default'
+                },
+                server: process.env['Azure.SQL.Database.ServerName'],
+                options: {
+                    database: process.env['Azure.SQL.Database.DataBase'],
+                    encrypt: true
+                }
+            }
+            var connection = new Connection(config);
+
+            // Attempt to connect and execute queries if connection goes through
+            connection.on('connect', function(err) {
+                if (err) {
+                    console.log(err)
+                } else {
+                    queryDatabase()
+                }
+            });
+
+            function queryDatabase() {
+                console.log('Reading rows from the Table...');
+
+                // Read all rows from table
+                var request = new Request(
+                    "select * from Telemetry",
+                    function(err, rowCount, rows) {
+                        console.log(rowCount + ' row(s) returned');
+                        process.exit();
+                    }
+                );
+
+                request.on('row', function(columns) {
+                    var obj = {};
+                    columns.forEach(function(column) {
+                        obj[column.metadata.colName] = column.value;
+                    });
+                    wss.broadcast(JSON.stringify(obj));
+                });
+
+                connection.execSql(request);
+            }
         }
     });
 });
@@ -78,56 +126,3 @@ function normalizePort(val) {
 
     return false;
 }
-
-// https://docs.microsoft.com/en-us/azure/sql-database/sql-database-connect-query-nodejs
-// setTimeout(function() {
-//     // Create connection to database
-//     var config = {
-//         authentication: {
-//             options: {
-//                 userName: process.env['Azure.SQL.Database.UserName'],
-//                 password: process.env['Azure.SQL.Database.Password']
-//             },
-//             type: 'default'
-//         },
-//         server: process.env['Azure.SQL.Database.ServerName'],
-//         options: {
-//             database: process.env['Azure.SQL.Database.DataBase'],
-//             encrypt: true
-//         }
-//     }
-//     var connection = new Connection(config);
-
-//     // Attempt to connect and execute queries if connection goes through
-//     connection.on('connect', function(err) {
-//         if (err) {
-//             console.log(err)
-//         } else {
-//             queryDatabase()
-//         }
-//     });
-
-//     function queryDatabase() {
-//         console.log('Reading rows from the Table...');
-
-//         // Read all rows from table
-//         var request = new Request(
-//             "select * from Telemetry",
-//             function(err, rowCount, rows) {
-//                 console.log(rowCount + ' row(s) returned');
-//                 process.exit();
-//             }
-//         );
-
-//         request.on('row', function(columns) {
-//             var obj = {};
-//             columns.forEach(function(column) {
-//                 obj[column.metadata.colName] = column.value;
-//             });
-//             wss.broadcast(JSON.stringify(obj));
-//         });
-
-
-//         connection.execSql(request);
-//     }
-// }, 1000);
