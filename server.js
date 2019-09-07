@@ -31,10 +31,16 @@ wss.broadcast = function broadcast(data) {
     });
 };
 
-// const ws = new WebSocket('wss://www.fresh-byte.azurewebsites.net/test');
-// ws.on('open', function open() {
-//     ws.send('test');
-// });
+const ws = new WebSocket('ws://www.host.com/path');
+ws.on('open', function open() {
+    const array = new Float32Array(5);
+
+    for (var i = 0; i < array.length; ++i) {
+        array[i] = i / 2;
+    }
+
+    ws.send(array);
+});
 
 var iotHubReader = new iotHubClient(process.env['Azure.IoT.IoTHub.ConnectionString'], process.env['Azure.IoT.IoTHub.ConsumerGroup']);
 iotHubReader.startReadMessage(function(obj, date) {
