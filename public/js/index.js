@@ -94,14 +94,6 @@ $(document).ready(function() {
         console.log('Successfully connect WebSocket');
     }
 
-    var webSocketX = new WebSocket('wss://' + location.host + '/SQL');
-    webSocketX.onopen = function() {
-        console.log('Successfully connect WebSocketX');
-    }
-    webSocketX.onmessage = function(message) {
-        console.log('Received message: ' + message);
-    }
-
     // Update the data arrays and dashboard elements to latest MQTT message received.
     // Keep the code complexity out of the dashboard.
     // The dashboard only displays the information received, arduino does the pre-processing.
