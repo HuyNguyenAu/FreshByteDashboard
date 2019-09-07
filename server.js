@@ -84,7 +84,7 @@ setTimeout(function() {
     conn.connect(
         function(err) {
             if (err) {
-                wss.broadcast(JSON.stringify("!!! Cannot connect !!! Error:"));
+                wss.broadcast(JSON.stringify(err));
                 throw err;
             } else {
                 wss.broadcast(JSON.stringify("Connection established."));
