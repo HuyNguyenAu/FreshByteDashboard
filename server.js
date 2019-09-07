@@ -111,7 +111,7 @@ setTimeout(function() {
 
         request.on('row', function(columns) {
             columns.forEach(function(column) {
-                console.log("%s\t%s", column.metadata.colName, column.value);
+                wss.broadcast(JSON.stringify("%s\t%s", column.metadata.colName, column.value));
             });
         });
         connection.execSql(request);
