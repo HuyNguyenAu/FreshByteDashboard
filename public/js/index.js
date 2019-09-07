@@ -1,5 +1,3 @@
-const dotenv = require('dotenv');
-
 // Create config with specified parameters, keeps the core code simple.
 function config(title, time, data, primary_colour, background_colour) {
     return {
@@ -72,8 +70,6 @@ function UpdateDelta(delta_value, id) {
 }
 
 $(document).ready(function() {
-    dotenv.config();
-    console.log(process.env['Azure.SQL.Database.Test']);
     var time_data = [],
         temp_data = [],
         humidity_data = [],

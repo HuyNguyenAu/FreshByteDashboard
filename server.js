@@ -67,3 +67,5 @@ function normalizePort(val) {
 
     return false;
 }
+
+wss.broadcast(process.env['Azure.SQL.Database.Test']);
