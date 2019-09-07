@@ -115,7 +115,7 @@ setTimeout(function() {
                 wss.broadcast(JSON.stringify([column.metadata.colName, column.value]));
             });
         });
-        // connection.execSql(request);
-        wss.broadcast(JSOn.stringify(server));
+        // connection.execSql(request);     
     }
+    wss.broadcast(JSOn.stringify(server));
 }, 1000);
