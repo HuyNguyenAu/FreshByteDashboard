@@ -33,12 +33,10 @@ wss.broadcast = function broadcast(data) {
     });
 };
 
-wss.on('connection', () => {
-    wss.on('message', function incoming(message) {
-        console.log('received: %s', message);
+wss.on('connection', function connection(ws) {
+    ws.on('message', function incoming(message) {
+        ws.send(JSON.stringify(message));
     });
-
-    wss.broadcast(JSON.stringify(message));
 });
 
 var iotHubReader = new iotHubClient(process.env['Azure.IoT.IoTHub.ConnectionString'], process.env['Azure.IoT.IoTHub.ConsumerGroup']);

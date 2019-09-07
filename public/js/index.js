@@ -102,7 +102,7 @@ $(document).ready(function() {
     var webSocket = new WebSocket('wss://' + location.host + '/');
     webSocket.onopen = function() {
         console.log('Successfully connect WebSocket');
-        webSocket.send(JSON.stringify("sql"));
+        webSocket.send("sql");
     }
 
     // Update the data arrays and dashboard elements to latest MQTT message received.
