@@ -75,7 +75,7 @@ ws.onopen = function() {
 }
 
 ws.onmessage = function(data) {
-    console.log(data);
+    console.log(data.data);
 }
 
 $(document).ready(function() {
