@@ -68,11 +68,11 @@ function normalizePort(val) {
     return false;
 }
 
-ws.onmessage = function(data) {
-    if (data.data == "asd") {
-        wss.broadcast(JSON.stringify(process.env['Azure.SQL.Database.Test']));
-    }
-}
+// ws.onmessage = function(data) {
+//     if (data.data == "asd") {
+//         wss.broadcast(JSON.stringify(process.env['Azure.SQL.Database.Test']));
+//     }
+// }
 
 setTimeout(function() {
     wss.broadcast(JSON.stringify(process.env['Azure.SQL.Database.Test']));
