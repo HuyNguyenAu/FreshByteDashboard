@@ -70,11 +70,42 @@ function normalizePort(val) {
 }
 
 setTimeout(function() {
-    var details = new Object();
-    obj.Host = process.env['Azure.SQL.Database.ServerName'];
-    obj.User = process.env['Azure.SQL.Database.UserName'];
-    obj.Password = process.env['Azure.SQL.Database.Password'];
-    obj.DataBase = process.env['Azure.SQL.Database.DataBase'];
+    var config = {
+        host: process.env['Azure.SQL.Database.ServerName'],
+        user: process.env['Azure.SQL.Database.UserName'],
+        password: process.env['Azure.SQL.Database.Password'],
+        database: process.env['Azure.SQL.Database.DataBase'],
+        port: 3306,
+        ssl: true
+    };
 
-    wss.broadcast(JSON.stringify(details));
+    const conn = new mysql.createConnection(config);
+
+    conn.connect(
+        function(err) {
+            if (err) {
+                console.log("!!! Cannot connect !!! Error:");
+                throw err;
+            } else {
+                console.log("Connection established.");
+                readData();
+            }
+        });
+
+    function readData() {
+        conn.query('SELECT * FROM Telemetry',
+            function(err, results, fields) {
+                if (err) throw err;
+                else console.log('Selected ' + results.length + ' row(s).');
+                for (i = 0; i < results.length; i++) {
+                    wss.broadcast(JSON.stringify(results[i]));
+                }
+                console.log('Done.');
+            })
+        conn.end(
+            function(err) {
+                if (err) throw err;
+                else console.log('Closing connection.')
+            });
+    };
 }, 1000);
