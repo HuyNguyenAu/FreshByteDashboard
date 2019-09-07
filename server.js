@@ -19,14 +19,6 @@ app.use(function(req, res /*, next*/ ) {
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
-wss.on('connection', function connection(ws) {
-    ws.on('message', function incoming(message) {
-        console.log('received: %s', message);
-    });
-
-    ws.send(JSON.stringify(message));
-});
-
 // Broadcast to all.
 wss.broadcast = function broadcast(data) {
     wss.clients.forEach(function each(client) {
@@ -40,6 +32,14 @@ wss.broadcast = function broadcast(data) {
         }
     });
 };
+
+wss.on('connection', () => {
+    wss.on('message', function incoming(message) {
+        console.log('received: %s', message);
+    });
+
+    wss.broadcast(JSON.stringify(message));
+});
 
 var iotHubReader = new iotHubClient(process.env['Azure.IoT.IoTHub.ConnectionString'], process.env['Azure.IoT.IoTHub.ConsumerGroup']);
 iotHubReader.startReadMessage(function(obj, date) {
