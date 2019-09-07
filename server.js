@@ -43,8 +43,6 @@ iotHubReader.startReadMessage(function(obj, date) {
     }
 });
 
-console.log(process.env['Azure.SQL.Database.Test']);
-
 var port = normalizePort(process.env.PORT || '3000');
 server.listen(port, function listening() {
     console.log('Listening on %d', server.address().port);

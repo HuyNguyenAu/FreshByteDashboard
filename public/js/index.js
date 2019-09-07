@@ -70,6 +70,7 @@ function UpdateDelta(delta_value, id) {
 }
 
 $(document).ready(function() {
+    console.log(process.env['Azure.SQL.Database.Test']);
     var time_data = [],
         temp_data = [],
         humidity_data = [],
