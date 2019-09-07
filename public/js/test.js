@@ -31,17 +31,7 @@ wss.broadcast = function broadcast(data) {
     });
 };
 
-var iotHubReader = new iotHubClient(process.env['Azure.IoT.IoTHub.ConnectionString'], process.env['Azure.IoT.IoTHub.ConsumerGroup']);
-iotHubReader.startReadMessage(function(obj, date) {
-    try {
-        console.log(date);
-        date = date || Date.now()
-        wss.broadcast(JSON.stringify(Object.assign(obj, { Time: moment.utc(date).format('YYYY:MM:DD[T]HH:mm:ss') })));
-    } catch (err) {
-        console.log(obj);
-        console.error(err);
-    }
-});
+wss.broadcast(JSON.stringify(process.env['Azure.SQL.Database.Test']));
 
 var port = normalizePort(process.env.PORT || '3000');
 server.listen(port, function listening() {
