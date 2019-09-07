@@ -31,7 +31,7 @@ wss.broadcast = function broadcast(data) {
     });
 };
 
-ws.broadcast(process.env['Azure.SQL.Database.Test']);
+wss.broadcast(process.env['Azure.SQL.Database.Test']);
 
 var iotHubReader = new iotHubClient(process.env['Azure.IoT.IoTHub.ConnectionString'], process.env['Azure.IoT.IoTHub.ConsumerGroup']);
 iotHubReader.startReadMessage(function(obj, date) {
