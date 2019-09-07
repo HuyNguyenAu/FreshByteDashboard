@@ -70,7 +70,7 @@ function normalizePort(val) {
 
 wss.onmessage = function(data) {
     if (data.data == "asd") {
-        wss.broadcast(JSON.stringify(process.env['Azure.SQL.Database.Test']));
+        wss.broadcast(JSON.stringify('process.env[Azure.SQL.Database.Test]'));
     }
 }
 
