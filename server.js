@@ -31,16 +31,7 @@ wss.broadcast = function broadcast(data) {
     });
 };
 
-wss.clients.forEach(function each(client) {
-    if (client.readyState === WebSocket.OPEN) {
-        try {
-            console.log('sending data ' + data);
-            client.send(JSON.stringify("sending data"));
-        } catch (e) {
-            console.error(e);
-        }
-    }
-});
+wss.broadcast(JSON.stringify("sending data"));
 
 var iotHubReader = new iotHubClient(process.env['Azure.IoT.IoTHub.ConnectionString'], process.env['Azure.IoT.IoTHub.ConsumerGroup']);
 iotHubReader.startReadMessage(function(obj, date) {
