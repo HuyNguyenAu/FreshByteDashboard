@@ -104,7 +104,7 @@ $(document).ready(function() {
         console.log('Successfully connect WebSocket');
     }
 
-    ws.on('open', function open() {
+    webSocket.on('open', function open() {
         webSocket.send(JSON.stringify("sql"));
     });
 
