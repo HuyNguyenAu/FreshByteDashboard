@@ -54,7 +54,7 @@ function chart(context, title, time_data, data, primarty_colour, background_colo
 }
 
 // Calculate the percentange change. 
-function delta(new_value, old_value) {
+function Delta(new_value, old_value) {
     return Math.round((1 - (old_value / new_value)) * 100);
 }
 
@@ -126,7 +126,7 @@ $(document).ready(function() {
                 document.getElementById("temp").textContent = obj.Temp + "°C";
 
                 if (temp_data.length > 1) {
-                    UpdateDelta(delta(obj.Temp, temp_data[temp_data.length - 1]), "temp-delta");
+                    UpdateDelta(Delta(obj.Temp, temp_data[temp_data.length - 1]), "temp-delta");
                 }
                 temp_data.push(obj.Temp);
             }
@@ -138,7 +138,7 @@ $(document).ready(function() {
             if (obj.Humidity) {
                 document.getElementById("humidity").textContent = obj.Humidity + "%";
                 if (humidity_data.length > 1) {
-                    UpdateDelta(delta(obj.Humidity, humidity_data[humidity_data.length - 1]), "humidity-delta");
+                    UpdateDelta(Delta(obj.Humidity, humidity_data[humidity_data.length - 1]), "humidity-delta");
                 }
                 humidity_data.push(obj.Humidity);
             }
@@ -150,7 +150,7 @@ $(document).ready(function() {
             if (obj.O2) {
                 document.getElementById("o2").textContent = obj.O2 + "%";
                 if (o2_data.length > 1) {
-                    UpdateDelta(delta(obj.O2, o2_data[o2_data.length - 1]), "o2-delta");
+                    UpdateDelta(Delta(obj.O2, o2_data[o2_data.length - 1]), "o2-delta");
                 }
                 o2_data.push(obj.O2);
             }
@@ -162,7 +162,7 @@ $(document).ready(function() {
             if (obj.CO2) {
                 document.getElementById("co2").textContent = obj.CO2 + " ppm";
                 if (co2_data.length > 1) {;
-                    UpdateDelta(delta(obj.CO2, co2_data[co2_data.length - 1]), "co2-delta");
+                    UpdateDelta(Delta(obj.CO2, co2_data[co2_data.length - 1]), "co2-delta");
                 }
                 co2_data.push(obj.CO2);
             }
@@ -174,7 +174,7 @@ $(document).ready(function() {
             if (obj.Accel) {
                 document.getElementById("accel").textContent = obj.Accel + " |m/s^2|";
                 if (accel_data.length > 1) {
-                    UpdateDelta(delta(obj.Accel, accel_data[accel_data.length - 1]), "accel-delta");
+                    UpdateDelta(Delta(obj.Accel, accel_data[accel_data.length - 1]), "accel-delta");
                 }
                 accel_data.push(obj.Accel);
             }
@@ -186,7 +186,7 @@ $(document).ready(function() {
             if (obj.ShelfLife) {
                 document.getElementById("shelf-life").textContent = obj.ShelfLife + ' days';
                 if (shelf_life_data.length > 1) {
-                    UpdateDelta(delta(obj.ShelfLife, shelf_life_data[shelf_life_data.length - 1]), "shelf-life-delta");
+                    UpdateDelta(Delta(obj.ShelfLife, shelf_life_data[shelf_life_data.length - 1]), "shelf-life-delta");
                 }
                 shelf_life_data.push(obj.ShelfLife);
             }
@@ -198,7 +198,7 @@ $(document).ready(function() {
             if (obj.Ethylene) {
                 document.getElementById("ethylene").textContent = obj.Ethylene + ' pmol/(kg*s)';
                 if (ethylene_data.length > 1) {
-                    UpdateDelta(delta(obj.Ethylene, ethylene_data[ethylene_data.length - 1]), "ethylene-delta");
+                    UpdateDelta(Delta(obj.Ethylene, ethylene_data[ethylene_data.length - 1]), "ethylene-delta");
                 }
                 ethylene_data.push(obj.Ethylene);
             }
