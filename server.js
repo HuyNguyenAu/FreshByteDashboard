@@ -35,7 +35,7 @@ wss.clients.forEach(function each(client) {
     if (client.readyState === WebSocket.OPEN) {
         try {
             console.log('sending data ' + data);
-            client.send("sending data");
+            client.send(JSON.stringify("sending data"));
         } catch (e) {
             console.error(e);
         }
