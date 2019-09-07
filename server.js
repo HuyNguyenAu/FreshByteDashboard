@@ -73,49 +73,49 @@ function normalizePort(val) {
 // https://docs.microsoft.com/en-us/azure/sql-database/sql-database-connect-query-nodejs
 setTimeout(function() {
     // Create connection to database
-    var config = {
-        authentication: {
-            options: {
-                userName: process.env['Azure.SQL.Database.UserName'],
-                password: process.env['Azure.SQL.Database.Password']
-            },
-            type: 'default'
-        },
-        server: process.env['Azure.SQL.Database.ServerName'],
-        options: {
-            database: process.env['Azure.SQL.Database.DataBase'],
-            encrypt: true
-        }
-    }
-    var connection = new Connection(config);
+    // var config = {
+    //     authentication: {
+    //         options: {
+    //             userName: process.env['Azure.SQL.Database.UserName'],
+    //             password: process.env['Azure.SQL.Database.Password']
+    //         },
+    //         type: 'default'
+    //     },
+    //     server: process.env['Azure.SQL.Database.ServerName'],
+    //     options: {
+    //         database: process.env['Azure.SQL.Database.DataBase'],
+    //         encrypt: true
+    //     }
+    // }
+    // var connection = new Connection(config);
 
-    // Attempt to connect and execute queries if connection goes through
-    connection.on('connect', function(err) {
-        if (err) {
-            console.log(err)
-        } else {
-            queryDatabase()
-        }
-    });
+    // // Attempt to connect and execute queries if connection goes through
+    // connection.on('connect', function(err) {
+    //     if (err) {
+    //         console.log(err)
+    //     } else {
+    //         queryDatabase()
+    //     }
+    // });
 
-    function queryDatabase() {
-        console.log('Reading rows from the Table...');
+    // function queryDatabase() {
+    //     console.log('Reading rows from the Table...');
 
-        // Read all rows from table
-        var request = new Request(
-            "select * from Telemetry",
-            function(err, rowCount, rows) {
-                console.log(rowCount + ' row(s) returned');
-                process.exit();
-            }
-        );
+    //     // Read all rows from table
+    //     var request = new Request(
+    //         "select * from Telemetry",
+    //         function(err, rowCount, rows) {
+    //             console.log(rowCount + ' row(s) returned');
+    //             process.exit();
+    //         }
+    //     );
 
-        request.on('row', function(columns) {
-            columns.forEach(function(column) {
-                wss.broadcast(JSON.stringify([column.metadata.colName, column.value]));
-            });
-        });
-        // connection.execSql(request);     
-    }
+    //     request.on('row', function(columns) {
+    //         columns.forEach(function(column) {
+    //             wss.broadcast(JSON.stringify([column.metadata.colName, column.value]));
+    //         });
+    //     });
+    //     // connection.execSql(request);     
+    // }
     wss.broadcast(JSOn.stringify(server));
 }, 1000);
