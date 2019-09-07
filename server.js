@@ -110,17 +110,15 @@ setTimeout(function() {
             }
         );
 
-        var data = [];
-
         request.on('row', function(columns) {
             var obj = {};
             columns.forEach(function(column) {
                 obj[column.metadata.colName] = column.value;
             });
-            data.push(obj);
+            wss.broadcast(JSON.stringify(obj));
         });
 
-        wss.broadcast(JSON.stringify(data));
+
         connection.execSql(request);
     }
 }, 1000);
