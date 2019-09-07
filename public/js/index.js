@@ -104,6 +104,21 @@ $(document).ready(function() {
         console.log('Successfully connect WebSocket');
     }
 
+    webSocket.broadcast = function broadcast(data) {
+        webSocket.clients.forEach(function each(client) {
+            if (client.readyState === WebSocket.OPEN) {
+                try {
+                    console.log('Requesting' + data);
+                    client.send(data);
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+        });
+    };
+
+    webSocket.broadcast(JSON.stringify("sql"));
+
     // Update the data arrays and dashboard elements to latest MQTT message received.
     // Keep the code complexity out of the dashboard.
     // The dashboard only displays the information received, arduino does the pre-processing.
