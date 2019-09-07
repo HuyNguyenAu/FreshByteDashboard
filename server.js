@@ -31,8 +31,6 @@ wss.broadcast = function broadcast(data) {
     });
 };
 
-wss.broadcast(JSON.stringify("sending data"));
-
 var iotHubReader = new iotHubClient(process.env['Azure.IoT.IoTHub.ConnectionString'], process.env['Azure.IoT.IoTHub.ConsumerGroup']);
 iotHubReader.startReadMessage(function(obj, date) {
     try {
@@ -69,3 +67,9 @@ function normalizePort(val) {
 
     return false;
 }
+
+
+setTimeout(function() {
+    wss.broadcast(JSON.stringify("sending data"));
+
+}, 5000);
