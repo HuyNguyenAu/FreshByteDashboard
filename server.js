@@ -31,7 +31,7 @@ wss.broadcast = function broadcast(data) {
     });
 };
 
-wss.broadcast("Hellow");
+wss.broadcast(JSON.stringify(Object.assign("obj", { Time: moment.utc(date).format('YYYY:MM:DD[T]HH:mm:ss') })));
 
 var iotHubReader = new iotHubClient(process.env['Azure.IoT.IoTHub.ConnectionString'], process.env['Azure.IoT.IoTHub.ConsumerGroup']);
 iotHubReader.startReadMessage(function(obj, date) {
