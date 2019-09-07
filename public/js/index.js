@@ -94,6 +94,13 @@ $(document).ready(function() {
         console.log('Successfully connect WebSocket');
     }
 
+    var webSocketX = new WebSocket('wss://' + location.host + '/SQL');
+    webSocketX.onopen = function() {
+        console.log('Successfully connect WebSocketX');
+    }
+    webSocketX.onmessage = function(message) {
+        console.log('Received message: ' + message);
+    }
 
     // Update the data arrays and dashboard elements to latest MQTT message received.
     // Keep the code complexity out of the dashboard.
@@ -101,6 +108,7 @@ $(document).ready(function() {
     // !!! Need a better way to handle the repeated code blocks below.
     webSocket.onmessage = function(message) {
         console.log('Received message: ' + message.data);
+        console.log('Received message: ' + message);
         try {
             var obj = JSON.parse(message.data);
             const maxLen = 100;
