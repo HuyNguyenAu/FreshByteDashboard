@@ -70,11 +70,11 @@ function UpdateDelta(delta_value, id) {
 }
 
 var ws = new WebSocket('wss://' + location.host);
-webSocket.onopen = function() {
+ws.onopen = function() {
     console.log('Successfully connect WebSocket');
 }
 
-webSocket.onmessage = function(data) {
+ws.onmessage = function(data) {
     console.log(data);
 }
 
