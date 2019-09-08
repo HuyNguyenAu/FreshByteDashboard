@@ -161,9 +161,9 @@ $(document).ready(function() {
     webSocket.onmessage = function(message) {
         if (message.data.contains('Azure.Maps.SubscriptionKey ')) {
             return;
+        } else {
+            console.log('Received message: ' + message.data);
         }
-
-        console.log('Received message: ' + message.data);
 
         try {
             var obj = JSON.parse(message.data);
