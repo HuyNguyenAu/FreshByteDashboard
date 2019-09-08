@@ -71,7 +71,7 @@ function UpdateDelta(delta_value, id) {
 
 $(document).ready(function() {
     const maxLen = 100;
-
+    var map;
     var time_data = [],
         temp_data = [],
         humidity_data = [],
@@ -109,15 +109,16 @@ $(document).ready(function() {
             // Azure Maps.
             var ready = false,
                 user_position_marker, user_position = [144.96292, -37.80737],
-                map = new atlas.Map('map', {
-                    center: user_position,
-                    authOptions: {
-                        authType: 'subscriptionKey',
-                        subscriptionKey: message.data.replace(/Azure.Maps.SubscriptionKey\s/, "").replace(/"/g, '')
-                    },
-                    enableAccessibility: true,
-                }),
                 controls = [];
+
+            map = new atlas.Map('map', {
+                center: user_position,
+                authOptions: {
+                    authType: 'subscriptionKey',
+                    subscriptionKey: message.data.replace(/Azure.Maps.SubscriptionKey\s/, "").replace(/"/g, '')
+                },
+                enableAccessibility: true,
+            });
 
             function addControls() {
                 map.controls.remove(controls);
