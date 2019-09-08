@@ -33,7 +33,7 @@ wss.broadcast = function broadcast(data) {
     });
 };
 
-// Wait for client to request.
+// Wait for client to request SQL data.
 wss.on('connection', function connection(ws) {
     ws.on('message', function incoming(message) {
         if (message == "sql") {

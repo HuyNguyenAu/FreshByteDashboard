@@ -69,16 +69,6 @@ function UpdateDelta(delta_value, id) {
     }
 }
 
-// Okay this is really bad. I need to fix this.
-// var ws = new WebSocket('wss://' + location.host);
-// ws.onopen = function() {
-//     console.log('Successfully connect WebSocket');
-// }
-
-// ws.onmessage = function(data) {
-//     console.log(data);
-// }
-
 $(document).ready(function() {
     var time_data = [],
         temp_data = [],
@@ -102,6 +92,7 @@ $(document).ready(function() {
     var webSocket = new WebSocket('wss://' + location.host + '/');
     webSocket.onopen = function() {
         console.log('Successfully connect WebSocket');
+        // Call server to send SQL data.
         webSocket.send("sql");
     }
 
