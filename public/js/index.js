@@ -116,7 +116,7 @@ $(document).ready(function() {
                 center: user_position,
                 authOptions: {
                     authType: 'subscriptionKey',
-                    subscriptionKey: 'Ax6CHWnkkH7Zjt1uoQvH8TfBspFTMkPPybuLWF0V8_M' //message.data.replace(/Azure.Maps.SubscriptionKey\s/, "").replace(/"/g, '')
+                    subscriptionKey: message.data.replace(/Azure.Maps.SubscriptionKey\s/, "").replace(/"/g, '')
                 },
                 enableAccessibility: true,
             });
