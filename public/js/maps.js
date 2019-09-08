@@ -35,13 +35,11 @@ $(document).ready(function() {
             document.getElementById("location").innerHTML = "Lon: " + obj.Lon + "<br/>Lat: " + obj.Lat;
 
             // !!! IDK if this is the best way to implement live tracking.
-            user_position = [obj.Lon, obj.Lat];
-
             if (ready) {
                 map.markers.remove(user_position_marker);
                 user_position_marker = new atlas.HtmlMarker({
                     htmlContent: '<div class="pulseIcon"></div>',
-                    position: user_position
+                    position: [obj.Lon, obj.Lat]
                 });
                 map.markers.add(user_position_marker);
             }

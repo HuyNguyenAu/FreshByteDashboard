@@ -116,7 +116,7 @@ $(document).ready(function() {
                 center: user_position,
                 authOptions: {
                     authType: 'subscriptionKey',
-                    subscriptionKey: message.data.replace(/Azure.Maps.SubscriptionKey\s/, "").replace(/"/g, '')
+                    subscriptionKey: 'Ax6CHWnkkH7Zjt1uoQvH8TfBspFTMkPPybuLWF0V8_M' //message.data.replace(/Azure.Maps.SubscriptionKey\s/, "").replace(/"/g, '')
                 },
                 enableAccessibility: true,
             });
@@ -174,7 +174,6 @@ $(document).ready(function() {
 
             // Update the data and dashboard elements.
             // !!! IDK if this is the best way to implement live tracking.
-
             if (ready) {
                 map.markers.remove(user_position_marker);
                 user_position_marker = new atlas.HtmlMarker({
