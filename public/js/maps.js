@@ -68,7 +68,7 @@ $(document).ready(function() {
             }
 
             // Location.
-            document.getElementById("location").innerHTML = "Lon: " + obj.Lon + "<br/>Lat: " + obj.Lat;
+            document.getElementById("location").innerHTML = "Lon: " + obj.Lon + " Lat: " + obj.Lat;
 
             // !!! IDK if this is the best way to implement live tracking.
             if (ready) {
