@@ -1,4 +1,6 @@
 $(document).ready(function() {
+    const maxLen = 100;
+
     // Azure Maps.
     var ready = false,
         user_position_marker,
@@ -10,55 +12,54 @@ $(document).ready(function() {
     webSocket.onopen = function() {
         console.log('Successfully connect WebSocket');
         // Get maps subscription key.
-        webSocket.send("maps");
+        webSocket.send("map_key");
     }
 
     webSocket.onmessage = function(message) {
-        // Setup maps when key received.
-        if (message.data.includes('Azure.Maps.SubscriptionKey ')) {
-            map = new atlas.Map('map', {
-                center: user_position,
-                authOptions: {
-                    authType: 'subscriptionKey',
-                    subscriptionKey: message.data.replace(/Azure.Maps.SubscriptionKey\s/, "").replace(/"/g, '')
-                },
-                enableAccessibility: true,
-            });
-
-            function addControls() {
-                map.controls.remove(controls);
-                controls = [];
-                var controlStyle = "light";
-                // Zoom.
-                controls.push(new atlas.control.ZoomControl({
-                    zoomDelta: 1,
-                    style: controlStyle
-                }));
-                map.controls.add(controls, {
-                    position: "top-right"
-                });
-            }
-
-            map.events.add('ready', function() {
-                //Add controls to the map.
-                map.controls.add(
-                    new BringDataIntoViewControl({
-                        units: 'metric'
-                    }), {
-                        position: 'top-left'
-                    });
-
-                ready = true;
-            });
-            map.events.add('ready', addControls);
-
-        } else {
-            console.log('Received message: ' + message.data);
-        }
-
         try {
             var obj = JSON.parse(message.data);
-            const maxLen = 100;
+
+            // Setup maps when key received.
+            if (message.data.includes('Azure.Maps.SubscriptionKey ')) {
+                map = new atlas.Map('map', {
+                    center: user_position,
+                    authOptions: {
+                        authType: 'subscriptionKey',
+                        subscriptionKey: obj.data.replace(/Azure.Maps.SubscriptionKey\s/, "").replace(/"/g, '')
+                    },
+                    enableAccessibility: true,
+                });
+
+                function addControls() {
+                    map.controls.remove(controls);
+                    controls = [];
+                    var controlStyle = "light";
+                    // Zoom.
+                    controls.push(new atlas.control.ZoomControl({
+                        zoomDelta: 1,
+                        style: controlStyle
+                    }));
+                    map.controls.add(controls, {
+                        position: "top-right"
+                    });
+                }
+
+                map.events.add('ready', function() {
+                    //Add controls to the map.
+                    map.controls.add(
+                        new BringDataIntoViewControl({
+                            units: 'metric'
+                        }), {
+                            position: 'top-left'
+                        });
+
+                    ready = true;
+                });
+                map.events.add('ready', addControls);
+
+            } else {
+                console.log('Received message: ' + message.data);
+            }
 
             // Only accept objects with the dashboard tag.
             if (obj.Tag != "dashboard") {
