@@ -94,7 +94,7 @@ $(document).ready(function() {
     webSocket.onopen = function() {
         console.log('Successfully connect WebSocket');
         // Get maps subscription key.
-        webSocket.send("maps");
+        webSocket.send("map_key");
         // Call server to send SQL data.
         // webSocket.send("sql");
     }
