@@ -111,12 +111,6 @@ $(document).ready(function() {
             enableAccessibility: true,
         }),
         controls = [];
-
-    var webSocket = new WebSocket('wss://' + location.host);
-    webSocket.onopen = function() {
-        console.log('Successfully connect WebSocket');
-    }
-
     // Update the data arrays and dashboard elements to latest MQTT message received.
     // Keep the code complexity out of the dashboard.
     // The dashboard only displays the information received, arduino does the pre-processing.
