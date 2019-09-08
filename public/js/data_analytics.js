@@ -276,6 +276,19 @@ $(document).ready(function() {
             accel_chart.update();
             shelf_life_chart.update();
             ethylene_chart.update();
+
+            // Update table.
+            var row = document.getElementById("table").insertRow(0);
+            row.insertCell(0).innerHTML = obj.Time;
+            row.insertCell(1).innerHTML = obj.Temp;
+            row.insertCell(2).innerHTML = obj.Humidity;
+            row.insertCell(3).innerHTML = obj.O2;
+            row.insertCell(4).innerHTML = obj.CO2;
+            row.insertCell(5).innerHTML = obj.Accel;
+            row.insertCell(6).innerHTML = obj.ShelfLife;
+            row.insertCell(7).innerHTML = obj.Lon;
+            row.insertCell(8).innerHTML = obj.Lat;
+
         } catch (err) {
             console.error(err);
         }
