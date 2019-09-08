@@ -71,8 +71,6 @@ function UpdateDelta(delta_value, id) {
 
 $(document).ready(function() {
     const maxLen = 100;
-    var ready = false,
-        map;
     var time_data = [],
         temp_data = [],
         humidity_data = [],
@@ -92,6 +90,41 @@ $(document).ready(function() {
         shelf_life_chart = chart("shelf-life-chart", "Shelf Life (Days)", time_data, shelf_life_data, "rgba(255, 201, 14, 1)", "rgba(255, 201, 14, 0.4)"),
         ethylene_chart = chart("ethylene-chart", "Ethyene pmol/(kgs)", time_data, ethylene_data, "rgba(128, 64, 64, 1)", "rgba(128, 64, 64, 0.4)");
 
+    // Azure Maps.
+    var ready = false,
+        map,
+        user_position_marker,
+        user_position = [144.96292, -37.80737],
+        controls = [];
+
+    function addControls() {
+        map.controls.remove(controls);
+        controls = [];
+        var controlStyle = "light";
+        // Zoom.
+        controls.push(new atlas.control.ZoomControl({
+            zoomDelta: 1,
+            style: controlStyle
+        }));
+        // Pitch.
+        controls.push(new atlas.control.PitchControl({
+            pitchDegreesDelta: 5,
+            style: controlStyle
+        }));
+        // Rotate.
+        controls.push(new atlas.control.CompassControl({
+            rotationDegreesDelta: 10,
+            style: controlStyle
+        }));
+        // Theme.
+        controls.push(new atlas.control.StyleControl({
+            style: controlStyle
+        }));
+        map.controls.add(controls, {
+            position: "top-right"
+        });
+    }
+
     var webSocket = new WebSocket('wss://' + location.host + '/');
     webSocket.onopen = function() {
         console.log('Successfully connect WebSocket');
@@ -107,10 +140,6 @@ $(document).ready(function() {
     // !!! Need a better way to handle the repeated code blocks below.
     webSocket.onmessage = function(message) {
         if (message.data.includes('Azure.Maps.SubscriptionKey ')) {
-            // Azure Maps.
-            var user_position_marker, user_position = [144.96292, -37.80737],
-                controls = [];
-
             map = new atlas.Map('map', {
                 center: user_position,
                 authOptions: {
@@ -119,34 +148,6 @@ $(document).ready(function() {
                 },
                 enableAccessibility: true,
             });
-
-            function addControls() {
-                map.controls.remove(controls);
-                controls = [];
-                var controlStyle = "light";
-                // Zoom.
-                controls.push(new atlas.control.ZoomControl({
-                    zoomDelta: 1,
-                    style: controlStyle
-                }));
-                // Pitch.
-                controls.push(new atlas.control.PitchControl({
-                    pitchDegreesDelta: 5,
-                    style: controlStyle
-                }));
-                // Rotate.
-                controls.push(new atlas.control.CompassControl({
-                    rotationDegreesDelta: 10,
-                    style: controlStyle
-                }));
-                // Theme.
-                controls.push(new atlas.control.StyleControl({
-                    style: controlStyle
-                }));
-                map.controls.add(controls, {
-                    position: "top-right"
-                });
-            }
 
             map.events.add('ready', function() {
                 //Add controls to the map.
