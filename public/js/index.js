@@ -151,7 +151,7 @@ $(document).ready(function() {
             map.events.add('ready', addControls);
 
         } else {
-            console.log('Received message: ' + message.data);
+            console.log('Received message: ' + message.Tag);
         }
 
         try {
