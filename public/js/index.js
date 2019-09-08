@@ -71,7 +71,8 @@ function UpdateDelta(delta_value, id) {
 
 $(document).ready(function() {
     const maxLen = 100;
-    var map;
+    var ready = false,
+        map;
     var time_data = [],
         temp_data = [],
         humidity_data = [],
@@ -107,8 +108,7 @@ $(document).ready(function() {
     webSocket.onmessage = function(message) {
         if (message.data.includes('Azure.Maps.SubscriptionKey ')) {
             // Azure Maps.
-            var ready = false,
-                user_position_marker, user_position = [144.96292, -37.80737],
+            var user_position_marker, user_position = [144.96292, -37.80737],
                 controls = [];
 
             map = new atlas.Map('map', {
