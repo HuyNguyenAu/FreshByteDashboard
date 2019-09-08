@@ -101,7 +101,8 @@ $(document).ready(function() {
 
     // Azure Maps.
     var ready = false,
-        user_position_marker, user_position = [144.96292, -37.80737],
+        user_position_marker,
+        user_position = [144.96292, -37.80737],
         map,
         controls = [];
     // Update the data arrays and dashboard elements to latest MQTT message received.
