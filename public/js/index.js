@@ -174,8 +174,6 @@ $(document).ready(function() {
             }
 
             // Update the data and dashboard elements.
-            document.getElementById("location").innerHTML = "Lon: " + obj.Lon + "<br/>Lat: " + obj.Lat;
-
             // !!! IDK if this is the best way to implement live tracking.
             user_position = [obj.Lon, obj.Lat];
 
@@ -282,7 +280,7 @@ $(document).ready(function() {
 
             // Location.
             // !!! Need to figure out a way to better handle location.
-            document.getElementById("location").innerHTML = "Lon: " + obj.Lon + ", Lat: " + obj.Lat;
+            document.getElementById("location").innerHTML = "Lon: " + obj.Lon + "<br/>Lat: " + obj.Lat;
             if (obj.Lon) {
                 lon_data.push(obj.Lon);
             }
