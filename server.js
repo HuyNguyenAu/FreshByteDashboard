@@ -87,7 +87,7 @@ wss.on('connection', function connection(ws) {
                 connection.execSql(request);
             }
         } else if (message == "maps") {
-            wss.broadcast(JSON.stringify('Azure.Maps.SubscriptionKey ' + process.env['Azure.Maps.SubscriptionKey']));
+            wss.broadcast(JSON.stringify(Object.assign(process.env['Azure.Maps.SubscriptionKey'], { Tag: 'map_key' })));
         }
     });
 });

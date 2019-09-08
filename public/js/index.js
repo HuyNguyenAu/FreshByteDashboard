@@ -110,8 +110,10 @@ $(document).ready(function() {
     // The dashboard only displays the information received, arduino does the pre-processing.
     // !!! Need a better way to handle the repeated code blocks below.
     webSocket.onmessage = function(message) {
+        var obj = JSON.parse(message.data);
+
         // Setup maps when key received.
-        if (message.data.includes('Azure.Maps.SubscriptionKey ')) {
+        if (obj.Tag == "map_key") {
             map = new atlas.Map('map', {
                 center: user_position,
                 authOptions: {
@@ -153,8 +155,6 @@ $(document).ready(function() {
         }
 
         try {
-            var obj = JSON.parse(message.data);
-
             // Only accept objects with the dashboard tag.
             if (obj.Tag != "dashboard") {
                 return;
