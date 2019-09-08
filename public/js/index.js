@@ -159,7 +159,7 @@ $(document).ready(function() {
     // The dashboard only displays the information received, arduino does the pre-processing.
     // !!! Need a better way to handle the repeated code blocks below.
     webSocket.onmessage = function(message) {
-        if (message.data.contains('Azure.Maps.SubscriptionKey ')) {
+        if (message.data.includes('Azure.Maps.SubscriptionKey ')) {
             return;
         } else {
             console.log('Received message: ' + message.data);
