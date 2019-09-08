@@ -20,7 +20,7 @@ $(document).ready(function() {
             var obj = JSON.parse(message.data);
 
             // Setup maps when key received.
-            if (message.data.includes('Azure.Maps.SubscriptionKey ')) {
+            if (obj.Tag == "map_key") {
                 map = new atlas.Map('map', {
                     center: user_position,
                     authOptions: {
