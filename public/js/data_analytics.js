@@ -177,8 +177,8 @@ $(document).ready(function() {
                 document.getElementById("temp").textContent = obj.Temp + "°C";
 
                 if (temp_data.length > 1) {
-                    document.getElementById("temp-max").textContent = "Max " + Math.max(temp_data) + " °C";
-                    document.getElementById("temp-min").textContent = "Max " + Math.min(temp_data) + " °C";
+                    document.getElementById("temp-max").textContent = "Max " + Math.max.apply(Math, temp_data) + " °C";
+                    document.getElementById("temp-min").textContent = "Max " + Math.max.apply(Math, temp_data) + " °C";
                 }
 
                 temp_data.push(obj.Temp);
