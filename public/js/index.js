@@ -130,16 +130,6 @@ $(document).ready(function() {
                     zoomDelta: 1,
                     style: controlStyle
                 }));
-                // Pitch.
-                controls.push(new atlas.control.PitchControl({
-                    pitchDegreesDelta: 5,
-                    style: controlStyle
-                }));
-                // Rotate.
-                controls.push(new atlas.control.CompassControl({
-                    rotationDegreesDelta: 10,
-                    style: controlStyle
-                }));
                 map.controls.add(controls, {
                     position: "top-right"
                 });
