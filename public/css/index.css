@@ -165,7 +165,7 @@ https://stackoverflow.com/questions/44154580/equal-width-flex-items-even-after-t
 
 /* Map */
 
-map {
+#map {
     position: relative;
     width: 100%;
     height: 20%;
