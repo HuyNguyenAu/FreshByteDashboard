@@ -81,7 +81,7 @@ wss.on('connection', function connection(ws) {
                     columns.forEach(function(column) {
                         obj[column.metadata.colName] = column.value;
                     });
-                    wss.broadcast(JSON.stringify(obj));
+                    wss.broadcast(JSON.stringify(Object.assign(obj, { Tag: "data_analytics" })));
                 });
 
                 connection.execSql(request);

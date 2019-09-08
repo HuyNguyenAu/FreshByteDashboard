@@ -95,8 +95,6 @@ $(document).ready(function() {
         console.log('Successfully connect WebSocket');
         // Get maps subscription key.
         webSocket.send("map_key");
-        // Call server to send SQL data.
-        // webSocket.send("sql");
     }
 
     // Azure Maps.
