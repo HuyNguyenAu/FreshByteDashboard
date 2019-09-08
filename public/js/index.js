@@ -71,8 +71,6 @@ function UpdateDelta(delta_value, id) {
 
 $(document).ready(function() {
     const maxLen = 100;
-    var ready = false,
-        map;
     var time_data = [],
         temp_data = [],
         humidity_data = [],
@@ -101,52 +99,66 @@ $(document).ready(function() {
         // webSocket.send("sql");
     }
 
+    // Azure Maps.
+    var ready = false,
+        user_position_marker, user_position = [144.96292, -37.80737],
+        map = new atlas.Map('map', {
+            center: user_position,
+            authOptions: {
+                authType: 'subscriptionKey',
+                subscriptionKey: ''
+            },
+            enableAccessibility: true,
+        }),
+        controls = [];
+
+    var webSocket = new WebSocket('wss://' + location.host);
+    webSocket.onopen = function() {
+        console.log('Successfully connect WebSocket');
+    }
+
     // Update the data arrays and dashboard elements to latest MQTT message received.
     // Keep the code complexity out of the dashboard.
     // The dashboard only displays the information received, arduino does the pre-processing.
     // !!! Need a better way to handle the repeated code blocks below.
     webSocket.onmessage = function(message) {
         if (message.data.includes('Azure.Maps.SubscriptionKey ')) {
-            // Azure Maps.
-            var user_position_marker, user_position = [144.96292, -37.80737],
-                controls = [];
-
+            // subscriptionKey: message.data.replace(/Azure.Maps.SubscriptionKey\s/, "").replace(/"/g, '')
             map = new atlas.Map('map', {
-                center: user_position,
-                authOptions: {
-                    authType: 'subscriptionKey',
-                    subscriptionKey: message.data.replace(/Azure.Maps.SubscriptionKey\s/, "").replace(/"/g, '')
-                },
-                enableAccessibility: true,
-            });
-
-            function addControls() {
-                map.controls.remove(controls);
-                controls = [];
-                var controlStyle = "light";
-                // Zoom.
-                controls.push(new atlas.control.ZoomControl({
-                    zoomDelta: 1,
-                    style: controlStyle
-                }));
-                // Pitch.
-                controls.push(new atlas.control.PitchControl({
-                    pitchDegreesDelta: 5,
-                    style: controlStyle
-                }));
-                // Rotate.
-                controls.push(new atlas.control.CompassControl({
-                    rotationDegreesDelta: 10,
-                    style: controlStyle
-                }));
-                // Theme.
-                controls.push(new atlas.control.StyleControl({
-                    style: controlStyle
-                }));
-                map.controls.add(controls, {
-                    position: "top-right"
-                });
-            }
+                    center: user_position,
+                    authOptions: {
+                        authType: 'subscriptionKey',
+                        subscriptionKey: message.data.replace(/Azure.Maps.SubscriptionKey\s/, "").replace(/"/g, '')
+                    },
+                    enableAccessibility: true,
+                }),
+                function addControls() {
+                    map.controls.remove(controls);
+                    controls = [];
+                    var controlStyle = "light";
+                    // Zoom.
+                    controls.push(new atlas.control.ZoomControl({
+                        zoomDelta: 1,
+                        style: controlStyle
+                    }));
+                    // Pitch.
+                    controls.push(new atlas.control.PitchControl({
+                        pitchDegreesDelta: 5,
+                        style: controlStyle
+                    }));
+                    // Rotate.
+                    controls.push(new atlas.control.CompassControl({
+                        rotationDegreesDelta: 10,
+                        style: controlStyle
+                    }));
+                    // Theme.
+                    controls.push(new atlas.control.StyleControl({
+                        style: controlStyle
+                    }));
+                    map.controls.add(controls, {
+                        position: "top-right"
+                    });
+                }
 
             map.events.add('ready', function() {
                 //Add controls to the map.
@@ -160,6 +172,7 @@ $(document).ready(function() {
                 ready = true;
             });
             map.events.add('ready', addControls);
+
         } else {
             console.log('Received message: ' + message.data);
         }
