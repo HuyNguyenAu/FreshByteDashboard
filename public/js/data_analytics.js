@@ -53,9 +53,12 @@ function chart(context, title, time_data, data, primarty_colour, background_colo
     );
 }
 
-// Calculate the percentange change. 
-function Delta(new_value, old_value) {
-    return Math.round((1 - (old_value / new_value)) * 100);
+// Update max and min values
+function UpdateMaxMin(data, id_max, id_min, units) {
+    if (data.length > 1) {
+        document.getElementById(id_max).textContent = "Max " + Math.max.apply(Math, data) + " " + units;
+        document.getElementById(id_min).textContent = "Max " + Math.min.apply(Math, data) + " " + units;
+    }
 }
 
 $(document).ready(function() {
@@ -175,13 +178,8 @@ $(document).ready(function() {
             // Temp.
             if (obj.Temp) {
                 document.getElementById("temp").textContent = obj.Temp + "°C";
-
-                if (temp_data.length > 1) {
-                    document.getElementById("temp-max").textContent = "Max " + Math.max.apply(Math, temp_data) + " °C";
-                    document.getElementById("temp-min").textContent = "Max " + Math.max.apply(Math, temp_data) + " °C";
-                }
-
                 temp_data.push(obj.Temp);
+                UpdateMaxMin(temp_data, "temp-max", "temp-min", "°C");
             }
             if (temp_data.length > maxLen) {
                 temp_data.shift();
@@ -190,8 +188,8 @@ $(document).ready(function() {
             // Humidity.
             if (obj.Humidity) {
                 document.getElementById("humidity").textContent = obj.Humidity + "%";
-
                 humidity_data.push(obj.Humidity);
+                UpdateMaxMin(humidity_data, "humidity-max", "humidity-min", "%");
             }
             if (humidity_data.length > maxLen) {
                 humidity_data.shift();
@@ -200,8 +198,8 @@ $(document).ready(function() {
             // O2.
             if (obj.O2) {
                 document.getElementById("o2").textContent = obj.O2 + "%";
-
                 o2_data.push(obj.O2);
+                UpdateMaxMin(o2_data, "o2-max", "o2-min", "%");
             }
             if (o2_data.length > maxLen) {
                 o2_data.shift();
@@ -210,8 +208,8 @@ $(document).ready(function() {
             // CO2.
             if (obj.CO2) {
                 document.getElementById("co2").textContent = obj.CO2 + " ppm";
-
                 co2_data.push(obj.CO2);
+                UpdateMaxMin(co2_data, "co2-max", "co2-min", "ppm");
             }
             if (co2_data.length > maxLen) {
                 co2_data.shift();
@@ -220,8 +218,8 @@ $(document).ready(function() {
             // Accel.
             if (obj.Accel) {
                 document.getElementById("accel").textContent = obj.Accel + " |m/s^2|";
-
                 accel_data.push(obj.Accel);
+                UpdateMaxMin(accel_data, "accel-max", "accel-min", "|m/s^2|");
             }
             if (accel_data.length > maxLen) {
                 accel_data.shift();
@@ -230,8 +228,8 @@ $(document).ready(function() {
             // Shelf life. The arduino figures out the shelf life, not the dashboard.
             if (obj.ShelfLife) {
                 document.getElementById("shelf-life").textContent = obj.ShelfLife + ' days';
-
                 shelf_life_data.push(obj.ShelfLife);
+                UpdateMaxMin(shelf_life_data, "shelf-life-max", "shelf-life-min", "days");
             }
             if (shelf_life_data.length > maxLen) {
                 shelf_life_data.shift();
@@ -240,8 +238,8 @@ $(document).ready(function() {
             // Ethylene.
             if (obj.Ethylene) {
                 document.getElementById("ethylene").textContent = obj.Ethylene + ' pmol/(kg*s)';
-
                 ethylene_data.push(obj.Ethylene);
+                UpdateMaxMin(ethylene_data, "ethylene-max", "ethylene-min", "pmol/(kg*s)");
             }
             if (ethylene_data.length > maxLen) {
                 ethylene_data.shift();
@@ -288,3 +286,4 @@ $(document).ready(function() {
         }
     }
 });
+()
