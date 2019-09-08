@@ -97,7 +97,7 @@ $(document).ready(function() {
         // Get maps subscription key.
         webSocket.send("maps");
         // Call server to send SQL data.
-        webSocket.send("sql");
+        // webSocket.send("sql");
     }
 
     // Update the data arrays and dashboard elements to latest MQTT message received.
