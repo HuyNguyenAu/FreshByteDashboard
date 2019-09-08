@@ -1,3 +1,7 @@
+#map {
+    position: relative;
+}
+
 .pulseIcon {
     display: block;
     width: 20px;
@@ -9,9 +13,11 @@
     box-shadow: 0 0 0 rgb(73, 120, 120);
     animation: pulse 3s infinite;
 }
-    .pulseIcon:hover {
-        animation: none;
-    }
+
+.pulseIcon:hover {
+    animation: none;
+}
+
 @keyframes pulse {
     0% {
         box-shadow: 0 0 0 0 rgba(73, 191, 191, 0.4);
