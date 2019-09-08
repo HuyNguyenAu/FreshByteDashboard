@@ -47,6 +47,16 @@
             <!-- Cards -->
             <div class="stat-container">
                 <div>
+                    <span class="stat-header">Temperature</span>
+                    <div>
+                        <h2 class="stat-value" id="temp">
+                            0°C
+                        </h2>
+                        <small class="stat-delta" id="temp-delta">0%</small>
+                    </div>
+                    <canvas id="temp-chart"></canvas>
+                </div>
+                <div>
                     <span class="stat-header">Humidity</span>
                     <div>
                         <h2 class="stat-value" id="humidity">
@@ -109,7 +119,7 @@
             </div>
             <div class="line"></div>
             <!-- Most important stat, temp. -->
-            <div class="stat-container">
+            <!-- <div class="stat-container">
                 <div>
                     <span class="stat-header">Temperature</span>
                     <div>
@@ -120,7 +130,7 @@
                     </div>
                     <canvas id="temp-chart"></canvas>
                 </div>
-            </div>
+            </div> -->
             <div class="line"></div>
             <!-- Location -->
             <div class="stat-container">
