@@ -102,14 +102,7 @@ $(document).ready(function() {
     // Azure Maps.
     var ready = false,
         user_position_marker, user_position = [144.96292, -37.80737],
-        map = new atlas.Map('map', {
-            center: user_position,
-            authOptions: {
-                authType: 'subscriptionKey',
-                subscriptionKey: ''
-            },
-            enableAccessibility: true,
-        }),
+        map,
         controls = [];
     // Update the data arrays and dashboard elements to latest MQTT message received.
     // Keep the code complexity out of the dashboard.
