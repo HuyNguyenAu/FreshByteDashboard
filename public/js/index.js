@@ -125,40 +125,41 @@ $(document).ready(function() {
         if (message.data.includes('Azure.Maps.SubscriptionKey ')) {
             // subscriptionKey: message.data.replace(/Azure.Maps.SubscriptionKey\s/, "").replace(/"/g, '')
             map = new atlas.Map('map', {
-                    center: user_position,
-                    authOptions: {
-                        authType: 'subscriptionKey',
-                        subscriptionKey: message.data.replace(/Azure.Maps.SubscriptionKey\s/, "").replace(/"/g, '')
-                    },
-                    enableAccessibility: true,
-                }),
-                function addControls() {
-                    map.controls.remove(controls);
-                    controls = [];
-                    var controlStyle = "light";
-                    // Zoom.
-                    controls.push(new atlas.control.ZoomControl({
-                        zoomDelta: 1,
-                        style: controlStyle
-                    }));
-                    // Pitch.
-                    controls.push(new atlas.control.PitchControl({
-                        pitchDegreesDelta: 5,
-                        style: controlStyle
-                    }));
-                    // Rotate.
-                    controls.push(new atlas.control.CompassControl({
-                        rotationDegreesDelta: 10,
-                        style: controlStyle
-                    }));
-                    // Theme.
-                    controls.push(new atlas.control.StyleControl({
-                        style: controlStyle
-                    }));
-                    map.controls.add(controls, {
-                        position: "top-right"
-                    });
-                }
+                center: user_position,
+                authOptions: {
+                    authType: 'subscriptionKey',
+                    subscriptionKey: message.data.replace(/Azure.Maps.SubscriptionKey\s/, "").replace(/"/g, '')
+                },
+                enableAccessibility: true,
+            });
+
+            function addControls() {
+                map.controls.remove(controls);
+                controls = [];
+                var controlStyle = "light";
+                // Zoom.
+                controls.push(new atlas.control.ZoomControl({
+                    zoomDelta: 1,
+                    style: controlStyle
+                }));
+                // Pitch.
+                controls.push(new atlas.control.PitchControl({
+                    pitchDegreesDelta: 5,
+                    style: controlStyle
+                }));
+                // Rotate.
+                controls.push(new atlas.control.CompassControl({
+                    rotationDegreesDelta: 10,
+                    style: controlStyle
+                }));
+                // Theme.
+                controls.push(new atlas.control.StyleControl({
+                    style: controlStyle
+                }));
+                map.controls.add(controls, {
+                    position: "top-right"
+                });
+            }
 
             map.events.add('ready', function() {
                 //Add controls to the map.
