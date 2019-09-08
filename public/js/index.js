@@ -110,63 +110,63 @@ $(document).ready(function() {
     // The dashboard only displays the information received, arduino does the pre-processing.
     // !!! Need a better way to handle the repeated code blocks below.
     webSocket.onmessage = function(message) {
-        var obj = JSON.parse(message.data);
+        try {
+            var obj = JSON.parse(message.data);
 
-        // Setup maps when key received.
-        if (obj.Tag == "map_key") {
-            map = new atlas.Map('map', {
-                center: user_position,
-                authOptions: {
-                    authType: 'subscriptionKey',
-                    subscriptionKey: obj.data.replace(/Azure.Maps.SubscriptionKey\s/, "").replace(/"/g, '')
-                },
-                enableAccessibility: true,
-            });
-
-            function addControls() {
-                map.controls.remove(controls);
-                controls = [];
-                var controlStyle = "light";
-                // Zoom.
-                controls.push(new atlas.control.ZoomControl({
-                    zoomDelta: 1,
-                    style: controlStyle
-                }));
-                map.controls.add(controls, {
-                    position: "top-right"
+            // Setup maps when key received.
+            if (obj.Tag == "map_key") {
+                map = new atlas.Map('map', {
+                    center: user_position,
+                    authOptions: {
+                        authType: 'subscriptionKey',
+                        subscriptionKey: obj.data.replace(/Azure.Maps.SubscriptionKey\s/, "").replace(/"/g, '')
+                    },
+                    enableAccessibility: true,
                 });
+
+                function addControls() {
+                    map.controls.remove(controls);
+                    controls = [];
+                    var controlStyle = "light";
+                    // Zoom.
+                    controls.push(new atlas.control.ZoomControl({
+                        zoomDelta: 1,
+                        style: controlStyle
+                    }));
+                    map.controls.add(controls, {
+                        position: "top-right"
+                    });
+                }
+
+                map.events.add('ready', function() {
+                    //Add controls to the map.
+                    map.controls.add(
+                        new BringDataIntoViewControl({
+                            units: 'metric'
+                        }), {
+                            position: 'top-left'
+                        });
+
+                    ready = true;
+                });
+                map.events.add('ready', addControls);
+
+            } else {
+                console.log('Received message: ' + message.data);
             }
 
-            map.events.add('ready', function() {
-                //Add controls to the map.
-                map.controls.add(
-                    new BringDataIntoViewControl({
-                        units: 'metric'
-                    }), {
-                        position: 'top-left'
-                    });
+            // Only accept objects with the dashboard tag.
+            if (obj.Tag != "dashboard") {
+                return;
+            }
 
-                ready = true;
-            });
-            map.events.add('ready', addControls);
+            // Make sure the MQTT message contains all of the following fields.
+            if (!obj.Time || !obj.Temp || !obj.Humidity || !obj.O2 || !obj.CO2 || !obj.Accel ||
+                !obj.ShelfLife || !obj.Ethylene || !obj.Lon || !obj.Lat || !obj.Tag) {
+                console.log('Message contains unexpected contents: ' + message.data);
+                return;
+            }
 
-        } else {
-            console.log('Received message: ' + message.data);
-        }
-
-        // Only accept objects with the dashboard tag.
-        if (obj.Tag != "dashboard") {
-            return;
-        }
-
-        // Make sure the MQTT message contains all of the following fields.
-        if (!obj.Time || !obj.Temp || !obj.Humidity || !obj.O2 || !obj.CO2 || !obj.Accel ||
-            !obj.ShelfLife || !obj.Ethylene || !obj.Lon || !obj.Lat || !obj.Tag) {
-            console.log('Message contains unexpected contents: ' + message.data);
-            return;
-        }
-
-        try {
             // Update the data and dashboard elements.
             // !!! IDK if this is the best way to implement live tracking.
             if (ready) {
