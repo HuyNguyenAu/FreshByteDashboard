@@ -267,7 +267,7 @@ $(document).ready(function() {
 
             // Location.
             // !!! Need to figure out a way to better handle location.
-            document.getElementById("location").innerHTML = "Lon: " + obj.Lon + "<br/>Lat: " + obj.Lat;
+            document.getElementById("location").innerHTML = "Lon: " + obj.Lon + " Lat: " + obj.Lat;
             if (obj.Lon) {
                 lon_data.push(obj.Lon);
             }
