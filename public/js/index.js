@@ -105,7 +105,7 @@ $(document).ready(function() {
             center: user_position,
             authOptions: {
                 authType: 'subscriptionKey',
-                subscriptionKey: 'Ax6CHWnkkH7Zjt1uoQvH8TfBspFTMkPPybuLWF0V8_M'
+                subscriptionKey: ''
             },
             enableAccessibility: true,
         }),
@@ -164,15 +164,13 @@ $(document).ready(function() {
             const maxLen = 100;
 
             // Make sure the MQTT message contains all of the following fields.
-            // Else, it's not what we want.
-            // if (!obj.time || !obj.Temp || !obj.Humidity || !obj.O2 || !obj.CO2 || !obj.Accel ||
-            //     !obj.ShelfLife || !obj.Ethylene || !obj.Lon || !obj.Lat) {
-            //     console.log('Message contains unexpected contents: ' + obj.error);
-            //     return;
-            // }
+            if (!obj.Time || !obj.Temp || !obj.Humidity || !obj.O2 || !obj.CO2 || !obj.Accel ||
+                !obj.ShelfLife || !obj.Ethylene || !obj.Lon || !obj.Lat) {
+                console.log('Message contains unexpected contents: ' + obj.error);
+                return;
+            }
 
             // Update the data and dashboard elements.
-
             document.getElementById("location").innerHTML = "Lon: " + obj.Lon + "<br/>Lat: " + obj.Lat;
 
             // !!! IDK if this is the best way to implement live tracking.
