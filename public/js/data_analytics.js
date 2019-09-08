@@ -278,7 +278,7 @@ $(document).ready(function() {
             ethylene_chart.update();
 
             // Update table.
-            var row = document.getElementById("table").insertRow(0);
+            var row = document.getElementById("table").insertRow(-1);
             row.insertCell(0).innerHTML = obj.Time;
             row.insertCell(1).innerHTML = obj.Temp;
             row.insertCell(2).innerHTML = obj.Humidity;
