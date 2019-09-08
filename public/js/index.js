@@ -106,7 +106,6 @@ $(document).ready(function() {
     // !!! Need a better way to handle the repeated code blocks below.
     webSocket.onmessage = function(message) {
         if (message.data.includes('Azure.Maps.SubscriptionKey ')) {
-            console.log(message.data.replace(/Azure.Maps.SubscriptionKey\s/, ""));
             // Azure Maps.
             var ready = false,
                 user_position_marker, user_position = [144.96292, -37.80737],
@@ -114,7 +113,7 @@ $(document).ready(function() {
                     center: user_position,
                     authOptions: {
                         authType: 'subscriptionKey',
-                        subscriptionKey: message.data.replace(/Azure.Maps.SubscriptionKey\s/, "")
+                        subscriptionKey: message.data.replace(/Azure.Maps.SubscriptionKey\s/, "").replace(/"/g, '')
                     },
                     enableAccessibility: true,
                 }),
