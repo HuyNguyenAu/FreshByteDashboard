@@ -113,7 +113,7 @@ $(document).ready(function() {
                     center: user_position,
                     authOptions: {
                         authType: 'subscriptionKey',
-                        subscriptionKey: message.data.replace(/Azure.Maps.SubscriptionKey /, "")
+                        subscriptionKey: message.data.replace(/Azure.Maps.SubscriptionKey\s/, "")
                     },
                     enableAccessibility: true,
                 }),
