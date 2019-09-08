@@ -89,6 +89,15 @@ $(document).ready(function() {
         shelf_life_chart = chart("shelf-life-chart", "Shelf Life (Days)", time_data, shelf_life_data, "rgba(255, 201, 14, 1)", "rgba(255, 201, 14, 0.4)"),
         ethylene_chart = chart("ethylene-chart", "Ethyene pmol/(kgs)", time_data, ethylene_data, "rgba(128, 64, 64, 1)", "rgba(128, 64, 64, 0.4)");
 
+    var webSocket = new WebSocket('wss://' + location.host + '/');
+    webSocket.onopen = function() {
+        console.log('Successfully connect WebSocket');
+        // Get maps subscription key.
+        webSocket.send("maps");
+        // Call server to send SQL data.
+        webSocket.send("sql");
+    }
+
     // Azure Maps.
     var ready = false,
         user_position_marker, user_position = [144.96292, -37.80737],
@@ -143,20 +152,13 @@ $(document).ready(function() {
     });
     map.events.add('ready', addControls);
 
-    var webSocket = new WebSocket('wss://' + location.host + '/');
-    webSocket.onopen = function() {
-        console.log('Successfully connect WebSocket');
-        // Call server to send SQL data.
-        webSocket.send("sql");
-    }
-
     // Update the data arrays and dashboard elements to latest MQTT message received.
     // Keep the code complexity out of the dashboard.
     // The dashboard only displays the information received, arduino does the pre-processing.
     // !!! Need a better way to handle the repeated code blocks below.
     webSocket.onmessage = function(message) {
         console.log('Received message: ' + message.data);
-        console.log('Received message: ' + message);
+
         try {
             var obj = JSON.parse(message.data);
             const maxLen = 100;

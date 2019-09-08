@@ -6,7 +6,7 @@ $(document).ready(function() {
             center: user_position,
             authOptions: {
                 authType: 'subscriptionKey',
-                subscriptionKey: 'Ax6CHWnkkH7Zjt1uoQvH8TfBspFTMkPPybuLWF0V8_M'
+                subscriptionKey: ''
             },
             enableAccessibility: true,
         }),
