@@ -58,17 +58,6 @@ function Delta(new_value, old_value) {
     return Math.round((1 - (old_value / new_value)) * 100);
 }
 
-// Change the delta values and the colour accordingly.
-function UpdateDelta(delta_value, id) {
-    document.getElementById(id).textContent = delta_value + "%";
-
-    if (delta_value < 0) {
-        document.getElementById(id).style.backgroundColor = "#E64759";
-    } else {
-        document.getElementById(id).style.backgroundColor = "#1BC98E";
-    }
-}
-
 $(document).ready(function() {
     const maxLen = 100;
     var time_data = [],
@@ -186,6 +175,11 @@ $(document).ready(function() {
             // Temp.
             if (obj.Temp) {
                 document.getElementById("temp").textContent = obj.Temp + "°C";
+
+                if (temp_data.length > 1) {
+                    document.getElementById("temp-max").textContent = "Max " + Math.max(temp_data) + " °C";
+                    document.getElementById("temp-min").textContent = "Max " + Math.min(temp_data) + " °C";
+                }
 
                 temp_data.push(obj.Temp);
             }
