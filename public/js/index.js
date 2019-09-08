@@ -151,7 +151,6 @@ $(document).ready(function() {
         } else {
             console.log('Received message: ' + message.data);
         }
-        div
 
         try {
             var obj = JSON.parse(message.data);
