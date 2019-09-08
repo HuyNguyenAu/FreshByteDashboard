@@ -139,6 +139,9 @@ $(document).ready(function() {
                     rotationDegreesDelta: 10,
                     style: controlStyle
                 }));
+                map.controls.add(controls, {
+                    position: "top-right"
+                });
             }
 
             map.events.add('ready', function() {
