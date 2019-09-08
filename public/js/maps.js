@@ -32,7 +32,7 @@ $(document).ready(function() {
             // }
 
             // Location.
-            document.getElementById("location").innerHTML = "Lon: " + obj.Lon + ", Lat: " + obj.Lat;
+            document.getElementById("location").innerHTML = "Lon: " + obj.Lon + "<br/>Lat: " + obj.Lat;
 
             // !!! IDK if this is the best way to implement live tracking.
             user_position = [obj.Lon, obj.Lat];
