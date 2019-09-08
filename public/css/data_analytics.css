@@ -171,6 +171,31 @@ https://stackoverflow.com/questions/44154580/equal-width-flex-items-even-after-t
 }
 
 
+/* Table */
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#table-headers {
+    font-size: 85%;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #007bff25;
+}
+
+
 /* Mobile */
 
 @media screen and (max-width: 600px) {

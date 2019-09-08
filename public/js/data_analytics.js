@@ -187,9 +187,6 @@ $(document).ready(function() {
             if (obj.Temp) {
                 document.getElementById("temp").textContent = obj.Temp + "°C";
 
-                if (temp_data.length > 1) {
-                    UpdateDelta(Delta(obj.Temp, temp_data[temp_data.length - 1]), "temp-delta");
-                }
                 temp_data.push(obj.Temp);
             }
             if (temp_data.length > maxLen) {
@@ -199,9 +196,7 @@ $(document).ready(function() {
             // Humidity.
             if (obj.Humidity) {
                 document.getElementById("humidity").textContent = obj.Humidity + "%";
-                if (humidity_data.length > 1) {
-                    UpdateDelta(Delta(obj.Humidity, humidity_data[humidity_data.length - 1]), "humidity-delta");
-                }
+
                 humidity_data.push(obj.Humidity);
             }
             if (humidity_data.length > maxLen) {
@@ -211,9 +206,7 @@ $(document).ready(function() {
             // O2.
             if (obj.O2) {
                 document.getElementById("o2").textContent = obj.O2 + "%";
-                if (o2_data.length > 1) {
-                    UpdateDelta(Delta(obj.O2, o2_data[o2_data.length - 1]), "o2-delta");
-                }
+
                 o2_data.push(obj.O2);
             }
             if (o2_data.length > maxLen) {
@@ -223,9 +216,7 @@ $(document).ready(function() {
             // CO2.
             if (obj.CO2) {
                 document.getElementById("co2").textContent = obj.CO2 + " ppm";
-                if (co2_data.length > 1) {;
-                    UpdateDelta(Delta(obj.CO2, co2_data[co2_data.length - 1]), "co2-delta");
-                }
+
                 co2_data.push(obj.CO2);
             }
             if (co2_data.length > maxLen) {
@@ -235,9 +226,7 @@ $(document).ready(function() {
             // Accel.
             if (obj.Accel) {
                 document.getElementById("accel").textContent = obj.Accel + " |m/s^2|";
-                if (accel_data.length > 1) {
-                    UpdateDelta(Delta(obj.Accel, accel_data[accel_data.length - 1]), "accel-delta");
-                }
+
                 accel_data.push(obj.Accel);
             }
             if (accel_data.length > maxLen) {
@@ -247,9 +236,7 @@ $(document).ready(function() {
             // Shelf life. The arduino figures out the shelf life, not the dashboard.
             if (obj.ShelfLife) {
                 document.getElementById("shelf-life").textContent = obj.ShelfLife + ' days';
-                if (shelf_life_data.length > 1) {
-                    UpdateDelta(Delta(obj.ShelfLife, shelf_life_data[shelf_life_data.length - 1]), "shelf-life-delta");
-                }
+
                 shelf_life_data.push(obj.ShelfLife);
             }
             if (shelf_life_data.length > maxLen) {
@@ -259,9 +246,7 @@ $(document).ready(function() {
             // Ethylene.
             if (obj.Ethylene) {
                 document.getElementById("ethylene").textContent = obj.Ethylene + ' pmol/(kg*s)';
-                if (ethylene_data.length > 1) {
-                    UpdateDelta(Delta(obj.Ethylene, ethylene_data[ethylene_data.length - 1]), "ethylene-delta");
-                }
+
                 ethylene_data.push(obj.Ethylene);
             }
             if (ethylene_data.length > maxLen) {
