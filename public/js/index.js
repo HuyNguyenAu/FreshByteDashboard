@@ -151,7 +151,7 @@ $(document).ready(function() {
             map.events.add('ready', addControls);
 
         } else {
-            console.log('Received message: ' + message.Tag);
+            console.log('Received message: ' + message.data);
         }
 
         // Only accept objects with the dashboard tag.
@@ -162,7 +162,7 @@ $(document).ready(function() {
         // Make sure the MQTT message contains all of the following fields.
         if (!obj.Time || !obj.Temp || !obj.Humidity || !obj.O2 || !obj.CO2 || !obj.Accel ||
             !obj.ShelfLife || !obj.Ethylene || !obj.Lon || !obj.Lat || !obj.Tag) {
-            console.log('Message contains unexpected contents!');
+            console.log('Message contains unexpected contents: ' + message.data);
             return;
         }
 
