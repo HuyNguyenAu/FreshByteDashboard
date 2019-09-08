@@ -151,13 +151,19 @@ $(document).ready(function() {
         } else {
             console.log('Received message: ' + message.data);
         }
+        div
 
         try {
             var obj = JSON.parse(message.data);
 
+            // Only accept objects with the dashboard tag.
+            if (obj.Tag != "dashboard") {
+                return;
+            }
+
             // Make sure the MQTT message contains all of the following fields.
             if (!obj.Time || !obj.Temp || !obj.Humidity || !obj.O2 || !obj.CO2 || !obj.Accel ||
-                !obj.ShelfLife || !obj.Ethylene || !obj.Lon || !obj.Lat) {
+                !obj.ShelfLife || !obj.Ethylene || !obj.Lon || !obj.Lat || !obj.Tag) {
                 console.log('Message contains unexpected contents!');
                 return;
             }

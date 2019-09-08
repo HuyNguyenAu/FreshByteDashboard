@@ -97,7 +97,7 @@ iotHubReader.startReadMessage(function(obj, date) {
     try {
         console.log(date);
         date = date || Date.now()
-        wss.broadcast(JSON.stringify(Object.assign(obj, { Time: moment.utc(date).format('YYYY:MM:DD[T]HH:mm:ss') })));
+        wss.broadcast(JSON.stringify(Object.assign(obj, { Time: moment.utc(date).format('YYYY:MM:DD[T]HH:mm:ss'), Tag: "dashboard" })));
     } catch (err) {
         console.log(obj);
         console.error(err);
