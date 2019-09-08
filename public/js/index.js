@@ -168,11 +168,11 @@ $(document).ready(function() {
             var obj = JSON.parse(message.data);
 
             // Make sure the MQTT message contains all of the following fields.
-            if (!obj.Time || !obj.Temp || !obj.Humidity || !obj.O2 || !obj.CO2 || !obj.Accel ||
-                !obj.ShelfLife || !obj.Ethylene || !obj.Lon || !obj.Lat) {
-                console.log('Message contains unexpected contents!');
-                return;
-            }
+            // if (!obj.Time || !obj.Temp || !obj.Humidity || !obj.O2 || !obj.CO2 || !obj.Accel ||
+            //     !obj.ShelfLife || !obj.Ethylene || !obj.Lon || !obj.Lat) {
+            //     console.log('Message contains unexpected contents!');
+            //     return;
+            // }
 
             // Update the data and dashboard elements.
             // !!! IDK if this is the best way to implement live tracking.
