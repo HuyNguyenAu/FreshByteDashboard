@@ -163,6 +163,13 @@ https://stackoverflow.com/questions/44154580/equal-width-flex-items-even-after-t
 }
 
 
+/* Map */
+
+#LoadMap {
+    height: 25vh;
+}
+
+
 /* Mobile */
 
 @media screen and (max-width: 600px) {
