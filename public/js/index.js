@@ -70,6 +70,8 @@ function UpdateDelta(delta_value, id) {
 }
 
 $(document).ready(function() {
+    const maxLen = 100;
+
     var time_data = [],
         temp_data = [],
         humidity_data = [],
@@ -157,11 +159,14 @@ $(document).ready(function() {
     // The dashboard only displays the information received, arduino does the pre-processing.
     // !!! Need a better way to handle the repeated code blocks below.
     webSocket.onmessage = function(message) {
+        if (message.data.contains('Azure.Maps.SubscriptionKey ')) {
+            return;
+        }
+
         console.log('Received message: ' + message.data);
 
         try {
             var obj = JSON.parse(message.data);
-            const maxLen = 100;
 
             // Make sure the MQTT message contains all of the following fields.
             if (!obj.Time || !obj.Temp || !obj.Humidity || !obj.O2 || !obj.CO2 || !obj.Accel ||
