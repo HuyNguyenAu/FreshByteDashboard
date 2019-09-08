@@ -109,7 +109,7 @@ $(document).ready(function() {
             // Azure Maps.
             var ready = false,
                 user_position_marker, user_position = [144.96292, -37.80737],
-                map = new atlas.Map('LoadMap', {
+                map = new atlas.Map('map', {
                     center: user_position,
                     authOptions: {
                         authType: 'subscriptionKey',
@@ -169,7 +169,7 @@ $(document).ready(function() {
             // Make sure the MQTT message contains all of the following fields.
             if (!obj.Time || !obj.Temp || !obj.Humidity || !obj.O2 || !obj.CO2 || !obj.Accel ||
                 !obj.ShelfLife || !obj.Ethylene || !obj.Lon || !obj.Lat) {
-                console.log('Message contains unexpected contents: ' + obj.error);
+                console.log('Message contains unexpected contents: ' + obj);
                 return;
             }
 
