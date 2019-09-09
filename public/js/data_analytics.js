@@ -125,12 +125,6 @@ $(document).ready(function() {
         webSocket.send(JSON.stringify({ data: "select * from Telemetry order by Time offset 0 row fetch first 100 row only", tag: "sql" }));
     }
 
-    // Azure Maps.
-    var ready = false,
-        user_position_marker,
-        user_position = [144.96292, -37.80737],
-        map,
-        controls = [];
     // Update the data arrays and dashboard elements to latest MQTT message received.
     // Keep the code complexity out of the dashboard.
     // The dashboard only displays the information received, arduino does the pre-processing.
@@ -139,47 +133,7 @@ $(document).ready(function() {
         try {
             let obj = JSON.parse(message.data);
 
-            // Setup maps when key received.
-            if (obj.Tag == "map_key") {
-                map = new atlas.Map('map', {
-                    center: user_position,
-                    authOptions: {
-                        authType: 'subscriptionKey',
-                        subscriptionKey: obj.data.replace(/Azure.Maps.SubscriptionKey\s/, "").replace(/"/g, '')
-                    },
-                    enableAccessibility: true,
-                });
-
-                function addControls() {
-                    map.controls.remove(controls);
-                    controls = [];
-                    let controlStyle = "light";
-                    // Zoom.
-                    controls.push(new atlas.control.ZoomControl({
-                        zoomDelta: 1,
-                        style: controlStyle
-                    }));
-                    map.controls.add(controls, {
-                        position: "top-right"
-                    });
-                }
-
-                map.events.add('ready', function() {
-                    //Add controls to the map.
-                    map.controls.add(
-                        new BringDataIntoViewControl({
-                            units: 'metric'
-                        }), {
-                            position: 'top-left'
-                        });
-
-                    ready = true;
-                });
-                map.events.add('ready', addControls);
-
-            } else {
-                console.log('Received message: ' + message.data);
-            }
+            console.log('Received message: ' + message.data);
 
             // Only accept objects with the dashboard tag.
             if (obj.tag != "data_analytics") {
@@ -193,17 +147,7 @@ $(document).ready(function() {
                 return;
             }
 
-            // Update the data and dashboard elements.
-            // !!! IDK if this is the best way to implement live tracking.
-            if (ready) {
-                map.markers.remove(user_position_marker);
-                user_position_marker = new atlas.HtmlMarker({
-                    htmlContent: '<div class="pulseIcon"></div>',
-                    position: [obj.Lon, obj.Lat]
-                });
-                map.markers.add(user_position_marker);
-            }
-
+            // Update the data and dashboard elements.          
             if (obj.Time) {
                 time_data.push(obj.Time);
             }
