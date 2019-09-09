@@ -283,6 +283,6 @@ $(document).ready(function() {
     };
 
     $(window).on('beforeunload', function() {
-        socket.close();
+        webSocket.close();
     });
 });
