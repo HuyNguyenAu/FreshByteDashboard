@@ -38,7 +38,7 @@ wss.on('connection', function connection(ws) {
     ws.on('message', function incoming(message) {
         let obj = JSON.parse(message);
 
-        if (message == "sql") {
+        if (obj.tag == "sql") {
             // https://docs.microsoft.com/en-us/azure/sql-database/sql-database-connect-query-nodejs
             // Create connection to database
             var config = {
@@ -71,7 +71,7 @@ wss.on('connection', function connection(ws) {
 
                 // Read all rows from table
                 var request = new Request(
-                    "select * from Telemetry",
+                    obj.data,
                     function(err, rowCount, rows) {
                         console.log(rowCount + ' row(s) returned');
                         process.exit();
