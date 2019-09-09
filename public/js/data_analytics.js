@@ -80,6 +80,7 @@ function Search() {
     tr = table.getElementsByTagName("tr");
     // Loop through all table rows, and hide those who don't match the search query
     for (i = 0; i < tr.length; i++) {
+        // Search the whole row (row elements).
         for (j = 0; j < tr[i].getElementsByTagName("td").length; j++) {
             td = tr[i].getElementsByTagName("td")[j];
             if (td) {
