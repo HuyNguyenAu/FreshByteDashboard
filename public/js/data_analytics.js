@@ -61,6 +61,13 @@ function UpdateMaxMin(data, id_max, id_min, units) {
     }
 }
 
+// Find average value of array.
+// https://www.jstips.co/en/javascript/array-average-and-median/
+function Average(data) {
+    let sum = data.reduce((previous, current) => current += previous);
+    return sum / data.length;
+}
+
 $(document).ready(function() {
     const maxLen = 100;
     var time_data = [],
@@ -101,7 +108,7 @@ $(document).ready(function() {
     // !!! Need a better way to handle the repeated code blocks below.
     webSocket.onmessage = function(message) {
         try {
-            var obj = JSON.parse(message.data);
+            let obj = JSON.parse(message.data);
 
             // Setup maps when key received.
             if (obj.Tag == "map_key") {
@@ -117,7 +124,7 @@ $(document).ready(function() {
                 function addControls() {
                     map.controls.remove(controls);
                     controls = [];
-                    var controlStyle = "light";
+                    let controlStyle = "light";
                     // Zoom.
                     controls.push(new atlas.control.ZoomControl({
                         zoomDelta: 1,
@@ -177,7 +184,7 @@ $(document).ready(function() {
 
             // Temp.
             if (obj.Temp) {
-                document.getElementById("temp").textContent = obj.Temp + "°C";
+                document.getElementById("temp").textContent = Average(temp_data) + "°C";
                 temp_data.push(obj.Temp);
                 UpdateMaxMin(temp_data, "temp-max", "temp-min", "°C");
             }
@@ -187,7 +194,7 @@ $(document).ready(function() {
 
             // Humidity.
             if (obj.Humidity) {
-                document.getElementById("humidity").textContent = obj.Humidity + "%";
+                document.getElementById("humidity").textContent = Average(humidity_data) + "%";
                 humidity_data.push(obj.Humidity);
                 UpdateMaxMin(humidity_data, "humidity-max", "humidity-min", "%");
             }
@@ -197,7 +204,7 @@ $(document).ready(function() {
 
             // O2.
             if (obj.O2) {
-                document.getElementById("o2").textContent = obj.O2 + "%";
+                document.getElementById("o2").textContent = Average(o2_data) + "%";
                 o2_data.push(obj.O2);
                 UpdateMaxMin(o2_data, "o2-max", "o2-min", "%");
             }
@@ -207,7 +214,7 @@ $(document).ready(function() {
 
             // CO2.
             if (obj.CO2) {
-                document.getElementById("co2").textContent = obj.CO2 + " ppm";
+                document.getElementById("co2").textContent = Average(co2_data) + " ppm";
                 co2_data.push(obj.CO2);
                 UpdateMaxMin(co2_data, "co2-max", "co2-min", "ppm");
             }
@@ -217,7 +224,7 @@ $(document).ready(function() {
 
             // Accel.
             if (obj.Accel) {
-                document.getElementById("accel").textContent = obj.Accel + " |m/s^2|";
+                document.getElementById("accel").textContent = Average(accel_data) + " |m/s^2|";
                 accel_data.push(obj.Accel);
                 UpdateMaxMin(accel_data, "accel-max", "accel-min", "|m/s^2|");
             }
@@ -227,7 +234,7 @@ $(document).ready(function() {
 
             // Shelf life. The arduino figures out the shelf life, not the dashboard.
             if (obj.ShelfLife) {
-                document.getElementById("shelf-life").textContent = obj.ShelfLife + ' days';
+                document.getElementById("shelf-life").textContent = Average(shelf_life_data) + ' days';
                 shelf_life_data.push(obj.ShelfLife);
                 UpdateMaxMin(shelf_life_data, "shelf-life-max", "shelf-life-min", "days");
             }
@@ -237,7 +244,7 @@ $(document).ready(function() {
 
             // Ethylene.
             if (obj.Ethylene) {
-                document.getElementById("ethylene").textContent = obj.Ethylene + ' pmol/(kg*s)';
+                document.getElementById("ethylene").textContent = Average(ethylene_data) + ' pmol/(kg*s)';
                 ethylene_data.push(obj.Ethylene);
                 UpdateMaxMin(ethylene_data, "ethylene-max", "ethylene-min", "pmol/(kg*s)");
             }
@@ -270,7 +277,7 @@ $(document).ready(function() {
             ethylene_chart.update();
 
             // Update table.
-            var row = document.getElementById("table").insertRow(-1);
+            let row = document.getElementById("table").insertRow(-1);
             row.insertCell(0).innerHTML = obj.Time;
             row.insertCell(1).innerHTML = obj.Temp;
             row.insertCell(2).innerHTML = obj.Humidity;
