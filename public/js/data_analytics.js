@@ -202,6 +202,8 @@ function FilterCharts() {
 }
 
 $(document).ready(function() {
+    var count = 0;
+
     temp_chart = chart("temp-chart", "Temperature (Celsius)", time_data, temp_data, "rgba(255, 99, 132, 1)", "rgba(255, 99, 132, 0.4)");
     humidity_chart = chart("humidity-chart", "Humidity (%)", time_data, humidity_data, "rgba(54, 162, 235, 1)", "rgba(54, 162, 235, 0.4)");
     o2_chart = chart("o2-chart", "O2 (%)", time_data, o2_data, "rgba(75, 192, 192, 1)", "rgba(75, 192, 192, 0.4)");
@@ -345,6 +347,8 @@ $(document).ready(function() {
             row.insertCell(7).innerHTML = obj.ShelfLife;
             row.insertCell(8).innerHTML = obj.Lon;
             row.insertCell(9).innerHTML = obj.Lat;
+
+            count++;
         } catch (err) {
             console.error(err);
         }
