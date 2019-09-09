@@ -5,17 +5,7 @@ var time_data = [],
     co2_data = [],
     accel_data = [],
     shelf_life_data = [],
-    ethylene_data = [],
-    lon_data = [],
-    lat_data = [];
-
-var temp_chart,
-    humidity_chart,
-    o2_chart,
-    co2_chart,
-    accel_chart,
-    shelf_life_chart,
-    ethylene_chart;
+    ethylene_data = [];
 
 // Create config with specified parameters, keeps the core code simple.
 function config(title, time, data, primary_colour, background_colour) {
@@ -135,24 +125,55 @@ function GetIDs() {
 
 // Filter Charts.
 function FilterCharts() {
-    // GetIDs().forEach(x => {
+    var time_data_f = [],
+        temp_data_f = [],
+        humidity_data_f = [],
+        o2_data_f = [],
+        co2_data_f = [],
+        accel_data_f = [],
+        shelf_life_data_f = [],
+        ethylene_data_f = [];
 
-    // });
-    var temp_chart = document.getElementById("temp-chart").getContext('2d');
-    console.log(temp_chart.data);
+    GetIDs().forEach(x => {
+        time_data_f.push(time_data[x]);
+        temp_data_f.push(temp_data[x]);
+        humidity_data_f.push(humidity_data[x]);
+        o2_data_f.push(o2_data[x]);
+        co2_data_f.push(co2_data[x]);
+        accel_data_f.push(accel_data[x]);
+        shelf_life_data_f.push(shelf_life_data[x]);
+        ethylene_data_f.push(ethylene_data[x]);
+    });
+
+    var temp_chart_f = chart("temp-chart", "Temperature (Celsius)", time_data_f, temp_data_f, "rgba(255, 99, 132, 1)", "rgba(255, 99, 132, 0.4)"),
+        humidity_chart_f = chart("humidity-chart", "Humidity (%)", time_data_f, humidity_data_f, "rgba(54, 162, 235, 1)", "rgba(54, 162, 235, 0.4)"),
+        o2_chart_f = chart("o2-chart", "O2 (%)", time_data_f, o2_data_f, "rgba(75, 192, 192, 1)", "rgba(75, 192, 192, 0.4)"),
+        co2_chart_f = chart("co2-chart", "CO2 (%)", time_data_f, co2_data_f, "rgba(145, 97, 242, 1)", "rgba(145, 97, 242, 0.4)"),
+        accel_chart_f = chart("accel-chart", "Accel |m/s^2|", time_data_f, accel_data_f, "rgba(255, 205, 86, 1)", "rgba(255, 205, 86, 0.4)"),
+        shelf_life_chart_f = chart("shelf-life-chart", "Shelf Life (Days)", time_data_f, shelf_life_data_f, "rgba(255, 201, 14, 1)", "rgba(255, 201, 14, 0.4)"),
+        ethylene_chart_f = chart("ethylene-chart", "Ethyene pmol/(kgs)", time_data_f, ethylene_data_f, "rgba(128, 64, 64, 1)", "rgba(128, 64, 64, 0.4)");
+
+    // Update the charts to reflect data array changes.
+    temp_chart_f.update();
+    humidity_chart_f.update();
+    o2_chart_f.update();
+    co2_chart_f.update();
+    accel_chart_f.update();
+    shelf_life_chart_f.update();
+    ethylene_chart_f.update();
 
 }
 
 $(document).ready(function() {
     const maxLen = 100;
 
-    temp_chart = chart("temp-chart", "Temperature (Celsius)", time_data, temp_data, "rgba(255, 99, 132, 1)", "rgba(255, 99, 132, 0.4)");
-    humidity_chart = chart("humidity-chart", "Humidity (%)", time_data, humidity_data, "rgba(54, 162, 235, 1)", "rgba(54, 162, 235, 0.4)");
-    o2_chart = chart("o2-chart", "O2 (%)", time_data, o2_data, "rgba(75, 192, 192, 1)", "rgba(75, 192, 192, 0.4)");
-    co2_chart = chart("co2-chart", "CO2 (%)", time_data, co2_data, "rgba(145, 97, 242, 1)", "rgba(145, 97, 242, 0.4)");
-    accel_chart = chart("accel-chart", "Accel |m/s^2|", time_data, accel_data, "rgba(255, 205, 86, 1)", "rgba(255, 205, 86, 0.4)");
-    shelf_life_chart = chart("shelf-life-chart", "Shelf Life (Days)", time_data, shelf_life_data, "rgba(255, 201, 14, 1)", "rgba(255, 201, 14, 0.4)");
-    ethylene_chart = chart("ethylene-chart", "Ethyene pmol/(kgs)", time_data, ethylene_data, "rgba(128, 64, 64, 1)", "rgba(128, 64, 64, 0.4)");
+    var temp_chart = chart("temp-chart", "Temperature (Celsius)", time_data, temp_data, "rgba(255, 99, 132, 1)", "rgba(255, 99, 132, 0.4)"),
+        humidity_chart = chart("humidity-chart", "Humidity (%)", time_data, humidity_data, "rgba(54, 162, 235, 1)", "rgba(54, 162, 235, 0.4)"),
+        o2_chart = chart("o2-chart", "O2 (%)", time_data, o2_data, "rgba(75, 192, 192, 1)", "rgba(75, 192, 192, 0.4)"),
+        co2_chart = chart("co2-chart", "CO2 (%)", time_data, co2_data, "rgba(145, 97, 242, 1)", "rgba(145, 97, 242, 0.4)"),
+        accel_chart = chart("accel-chart", "Accel |m/s^2|", time_data, accel_data, "rgba(255, 205, 86, 1)", "rgba(255, 205, 86, 0.4)"),
+        shelf_life_chart = chart("shelf-life-chart", "Shelf Life (Days)", time_data, shelf_life_data, "rgba(255, 201, 14, 1)", "rgba(255, 201, 14, 0.4)"),
+        ethylene_chart = chart("ethylene-chart", "Ethyene pmol/(kgs)", time_data, ethylene_data, "rgba(128, 64, 64, 1)", "rgba(128, 64, 64, 0.4)");
 
     var webSocket = new WebSocket('wss://' + location.host + '/');
     webSocket.onopen = function() {
@@ -245,21 +266,6 @@ $(document).ready(function() {
             }
             if (ethylene_data.length > maxLen) {
                 ethylene_data.shift();
-            }
-
-            // Location.
-            if (obj.Lon) {
-                lon_data.push(obj.Lon);
-            }
-            if (lon_data.length > maxLen) {
-                lon_data.shift();
-            }
-
-            if (obj.Lat) {
-                lat_data.push(obj.Lat);
-            }
-            if (lat_data.length > maxLen) {
-                lat_data.shift();
             }
 
             document.getElementById("temp").textContent = Average(temp_data) + "°C";
