@@ -73,7 +73,7 @@ function Average(data) {
 // Search
 // https://www.w3schools.com/howto/howto_js_filter_table.asp
 function Search() {
-    let input, filter, table, tr, td, i, txtValue;
+    var input, filter, table, tr, td, i, txtValue;
     input = document.getElementById("search");
     filter = input.value.toUpperCase();
     table = document.getElementById("table");
@@ -99,7 +99,7 @@ function Search() {
 
 // Get table ids.
 function GetIDs() {
-    let input, filter, table, tr, td, i, txtValue, ids = [];
+    var input, filter, table, tr, td, i, txtValue, ids = [];
     input = document.getElementById("search");
     filter = input.value.toUpperCase();
     table = document.getElementById("table");
