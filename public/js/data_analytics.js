@@ -98,6 +98,7 @@ function Search() {
 
 $(document).ready(function() {
     const maxLen = 100;
+    var load_more_count = 0;
     var time_data = [],
         temp_data = [],
         humidity_data = [],
@@ -120,8 +121,9 @@ $(document).ready(function() {
     var webSocket = new WebSocket('wss://' + location.host + '/');
     webSocket.onopen = function() {
         console.log('Successfully connect WebSocket');
-        // Call server to send SQL data.
-        webSocket.send("sql");
+        // Call server to send SQL data first 100 entries.
+        webSocket.send(JSON.stringify({ data: "select * from Telemetry order by Time offset 0 row fetch first 100 row only ", tag: "sql" }));
+
     }
 
     // Azure Maps.
@@ -181,7 +183,7 @@ $(document).ready(function() {
             }
 
             // Only accept objects with the dashboard tag.
-            if (obj.Tag != "data_analytics") {
+            if (obj.tag != "data_analytics") {
                 return;
             }
 
@@ -327,4 +329,12 @@ $(document).ready(function() {
             console.error(err);
         }
     }
+
+    // Scroll to bottom to load more entries.
+    window.onscroll = function() {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+            load_more_count++;
+            webSocket.send(JSON.stringify({ data: "select * from Telemetry order by Time offset " + load_more_count * 100 + " row fetch first 100 row only ", tag: "sql" }));
+        }
+    };
 });
