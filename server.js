@@ -36,8 +36,7 @@ wss.broadcast = function broadcast(data) {
 // Wait for client to request SQL data.
 wss.on('connection', function connection(ws) {
     ws.on('message', function incoming(message) {
-        let obj = JSON.parse(message.data);
-        if (obj.tag == "sql") {
+        if (message == "sql") {
             // https://docs.microsoft.com/en-us/azure/sql-database/sql-database-connect-query-nodejs
             // Create connection to database
             var config = {
@@ -70,7 +69,7 @@ wss.on('connection', function connection(ws) {
 
                 // Read all rows from table
                 var request = new Request(
-                    obj.data,
+                    "select * from Telemetry",
                     function(err, rowCount, rows) {
                         console.log(rowCount + ' row(s) returned');
                         process.exit();
@@ -87,8 +86,8 @@ wss.on('connection', function connection(ws) {
 
                 connection.execSql(request);
             }
-        } else if (obj.tag == "map_key") {
-            wss.broadcast(JSON.stringify({ Data: process.env['Azure.Maps.SubscriptionKey'], Tag: 'map_key' }));
+        } else if (message == "map_key") {
+            wss.broadcast(JSON.stringify({ data: process.env['Azure.Maps.SubscriptionKey'], Tag: 'map_key' }));
         }
     });
 });
