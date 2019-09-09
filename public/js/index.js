@@ -94,7 +94,7 @@ $(document).ready(function() {
     webSocket.onopen = function() {
         console.log('Successfully connect WebSocket');
         // Get maps subscription key.
-        webSocket.send("map_key");
+        webSocket.send(JSON.stringify({ Data: "map_key", Tag: "map_key" }));
     }
 
     // Azure Maps.
@@ -109,7 +109,7 @@ $(document).ready(function() {
     // !!! Need a better way to handle the repeated code blocks below.
     webSocket.onmessage = function(message) {
         try {
-            var obj = JSON.parse(message.data);
+            let obj = JSON.parse(message.data);
 
             // Setup maps when key received.
             if (obj.Tag == "map_key") {
