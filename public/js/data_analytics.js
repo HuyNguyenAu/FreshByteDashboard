@@ -162,6 +162,27 @@ function FilterCharts() {
     shelf_life_chart_f.update();
     ethylene_chart_f.update();
 
+    document.getElementById("temp").textContent = Average(temp_data) + "°C";
+    UpdateMaxMin(temp_data, "temp-max", "temp-min", "°C");
+
+    document.getElementById("humidity").textContent = Average(humidity_data) + "%";
+    UpdateMaxMin(humidity_data, "humidity-max", "humidity-min", "%");
+
+    document.getElementById("o2").textContent = Average(o2_data) + "%";
+    UpdateMaxMin(o2_data, "o2-max", "o2-min", "%");
+
+    document.getElementById("co2").textContent = Average(co2_data) + " ppm";
+    UpdateMaxMin(co2_data, "co2-max", "co2-min", "ppm");
+
+    document.getElementById("accel").textContent = Average(accel_data) + " |m/s^2|";
+    UpdateMaxMin(accel_data, "accel-max", "accel-min", "|m/s^2|");
+
+    document.getElementById("shelf-life").textContent = Average(shelf_life_data) + ' days';
+    UpdateMaxMin(shelf_life_data, "shelf-life-max", "shelf-life-min", "days");
+
+    UpdateMaxMin(ethylene_data, "ethylene-max", "ethylene-min", "pmol/(kg*s)");
+    document.getElementById("ethylene").textContent = Average(ethylene_data) + ' pmol/(kg*s)';
+
 }
 
 $(document).ready(function() {
