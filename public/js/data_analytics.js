@@ -56,6 +56,7 @@ function chart(context, title, time_data, data, primarty_colour, background_colo
 // Update max and min values
 function UpdateMaxMin(data, id_max, id_min, units) {
     if (data.length > 1) {
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/toPrecision
         document.getElementById(id_max).textContent = "Max " + Math.max.apply(Math, data).toPrecision(4) + " " + units;
         document.getElementById(id_min).textContent = "Min " + Math.min.apply(Math, data).toPrecision(4) + " " + units;
     }
@@ -67,6 +68,31 @@ function Average(data) {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
     let sum = data.reduce((previous, current) => current += previous);
     return (sum / data.length).toPrecision(4);
+}
+
+// Search
+// https://www.w3schools.com/howto/howto_js_filter_table.asp
+function Search() {
+    let input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("search");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("table");
+    tr = table.getElementsByTagName("tr");
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+        for (j = 0; j < tr[i].getElementsByTagName("td").length; j++) {
+            td = tr[i].getElementsByTagName("td")[j];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                    break;
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
 }
 
 $(document).ready(function() {
