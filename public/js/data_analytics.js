@@ -66,7 +66,7 @@ function UpdateMaxMin(data, id_max, id_min, units) {
 // https://www.jstips.co/en/javascript/array-average-and-median/
 function Average(data) {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
-    let sum = data.reduce((previous, current) => current += previous);
+    var sum = data.reduce((previous, current) => current += previous);
     return (sum / data.length).toPrecision(4);
 }
 
@@ -150,7 +150,7 @@ $(document).ready(function() {
     // !!! Need a better way to handle the repeated code blocks below.
     webSocket.onmessage = function(message) {
         try {
-            let obj = JSON.parse(message.data);
+            var obj = JSON.parse(message.data);
 
             console.log('Received message: ' + message.data);
 
@@ -276,7 +276,7 @@ $(document).ready(function() {
             ethylene_chart.update();
 
             // Update table.
-            let row = document.getElementById("table").insertRow(-1);
+            var row = document.getElementById("table").insertRow(-1);
             row.insertCell(0).innerHTML = count;
             row.insertCell(1).innerHTML = obj.Time;
             row.insertCell(2).innerHTML = obj.Temp;
