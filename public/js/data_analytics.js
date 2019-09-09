@@ -64,6 +64,7 @@ function UpdateMaxMin(data, id_max, id_min, units) {
 // Find average value of array.
 // https://www.jstips.co/en/javascript/array-average-and-median/
 function Average(data) {
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
     let sum = data.reduce((previous, current) => current += previous);
     return sum / data.length;
 }
@@ -184,9 +185,7 @@ $(document).ready(function() {
 
             // Temp.
             if (obj.Temp) {
-                document.getElementById("temp").textContent = Average(temp_data) + "°C";
                 temp_data.push(obj.Temp);
-                UpdateMaxMin(temp_data, "temp-max", "temp-min", "°C");
             }
             if (temp_data.length > maxLen) {
                 temp_data.shift();
@@ -194,9 +193,7 @@ $(document).ready(function() {
 
             // Humidity.
             if (obj.Humidity) {
-                document.getElementById("humidity").textContent = Average(humidity_data) + "%";
                 humidity_data.push(obj.Humidity);
-                UpdateMaxMin(humidity_data, "humidity-max", "humidity-min", "%");
             }
             if (humidity_data.length > maxLen) {
                 humidity_data.shift();
@@ -204,9 +201,7 @@ $(document).ready(function() {
 
             // O2.
             if (obj.O2) {
-                document.getElementById("o2").textContent = Average(o2_data) + "%";
                 o2_data.push(obj.O2);
-                UpdateMaxMin(o2_data, "o2-max", "o2-min", "%");
             }
             if (o2_data.length > maxLen) {
                 o2_data.shift();
@@ -214,9 +209,7 @@ $(document).ready(function() {
 
             // CO2.
             if (obj.CO2) {
-                document.getElementById("co2").textContent = Average(co2_data) + " ppm";
                 co2_data.push(obj.CO2);
-                UpdateMaxMin(co2_data, "co2-max", "co2-min", "ppm");
             }
             if (co2_data.length > maxLen) {
                 co2_data.shift();
@@ -224,9 +217,7 @@ $(document).ready(function() {
 
             // Accel.
             if (obj.Accel) {
-                document.getElementById("accel").textContent = Average(accel_data) + " |m/s^2|";
                 accel_data.push(obj.Accel);
-                UpdateMaxMin(accel_data, "accel-max", "accel-min", "|m/s^2|");
             }
             if (accel_data.length > maxLen) {
                 accel_data.shift();
@@ -234,9 +225,7 @@ $(document).ready(function() {
 
             // Shelf life. The arduino figures out the shelf life, not the dashboard.
             if (obj.ShelfLife) {
-                document.getElementById("shelf-life").textContent = Average(shelf_life_data) + ' days';
                 shelf_life_data.push(obj.ShelfLife);
-                UpdateMaxMin(shelf_life_data, "shelf-life-max", "shelf-life-min", "days");
             }
             if (shelf_life_data.length > maxLen) {
                 shelf_life_data.shift();
@@ -244,9 +233,7 @@ $(document).ready(function() {
 
             // Ethylene.
             if (obj.Ethylene) {
-                document.getElementById("ethylene").textContent = Average(ethylene_data) + ' pmol/(kg*s)';
                 ethylene_data.push(obj.Ethylene);
-                UpdateMaxMin(ethylene_data, "ethylene-max", "ethylene-min", "pmol/(kg*s)");
             }
             if (ethylene_data.length > maxLen) {
                 ethylene_data.shift();
@@ -266,6 +253,27 @@ $(document).ready(function() {
             if (lat_data.length > maxLen) {
                 lat_data.shift();
             }
+
+            document.getElementById("temp").textContent = Average(temp_data) + "°C";
+            UpdateMaxMin(temp_data, "temp-max", "temp-min", "°C");
+
+            document.getElementById("humidity").textContent = Average(humidity_data) + "%";
+            UpdateMaxMin(humidity_data, "humidity-max", "humidity-min", "%");
+
+            document.getElementById("o2").textContent = Average(o2_data) + "%";
+            UpdateMaxMin(o2_data, "o2-max", "o2-min", "%");
+
+            document.getElementById("co2").textContent = Average(co2_data) + " ppm";
+            UpdateMaxMin(co2_data, "co2-max", "co2-min", "ppm");
+
+            document.getElementById("accel").textContent = Average(accel_data) + " |m/s^2|";
+            UpdateMaxMin(accel_data, "accel-max", "accel-min", "|m/s^2|");
+
+            document.getElementById("shelf-life").textContent = Average(shelf_life_data) + ' days';
+            UpdateMaxMin(shelf_life_data, "shelf-life-max", "shelf-life-min", "days");
+
+            UpdateMaxMin(ethylene_data, "ethylene-max", "ethylene-min", "pmol/(kg*s)");
+            document.getElementById("ethylene").textContent = Average(ethylene_data) + ' pmol/(kg*s)';
 
             // Update the charts to reflect data array changes.
             temp_chart.update();
