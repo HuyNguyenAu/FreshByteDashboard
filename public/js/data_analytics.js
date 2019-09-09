@@ -107,7 +107,7 @@ function GetIDs() {
     // Loop through all table rows, and hide those who don't match the search query
     for (i = 0; i < tr.length; i++) {
         if (tr[i].style.display == "") {
-            td = tr[i].getElementsByTagName("td")[0];
+            let td = tr[i].getElementsByTagName("td")[0];
             ids.push(td.textContent || td.innerText);
             console.log(tr.length);
         }
