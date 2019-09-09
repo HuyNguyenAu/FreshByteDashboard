@@ -42,6 +42,21 @@ $(document).ready(function() {
                     map.controls.add(controls, {
                         position: "top-right"
                     });
+
+                    //Create a pitch control and add it to the map.
+                    controls.push(new atlas.control.PitchControl({
+                        pitchDegreesDelta: parseFloat(getSelectValue('pitchControlDelta')),
+                        style: controlStyle
+                    }));
+                    //Create a compass control and add it to the map.
+                    controls.push(new atlas.control.CompassControl({
+                        rotationDegreesDelta: parseFloat(getSelectValue('compassControlRotationDelta')),
+                        style: controlStyle
+                    }));
+                    //Create a style control and add it to the map.
+                    controls.push(new atlas.control.StyleControl({
+                        style: controlStyle
+                    }));
                 }
 
                 map.events.add('ready', function() {
