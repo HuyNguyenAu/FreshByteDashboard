@@ -108,7 +108,7 @@ function GetIDs() {
     for (i = 0; i < tr.length; i++) {
         if (tr[i].style.display == "") {
             ids.push(tr[i].getElementsByTagName("td")[0].innerText);
-            console.log(i);
+            console.log(tr.length);
         }
     }
 
