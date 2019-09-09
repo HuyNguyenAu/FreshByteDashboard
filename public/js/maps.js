@@ -39,10 +39,6 @@ $(document).ready(function() {
                         zoomDelta: 1,
                         style: controlStyle
                     }));
-                    map.controls.add(controls, {
-                        position: "top-right"
-                    });
-
                     //Create a pitch control and add it to the map.
                     controls.push(new atlas.control.PitchControl({
                         pitchDegreesDelta: parseFloat(getSelectValue('pitchControlDelta')),
@@ -57,6 +53,9 @@ $(document).ready(function() {
                     controls.push(new atlas.control.StyleControl({
                         style: controlStyle
                     }));
+                    map.controls.add(controls, {
+                        position: "top-right"
+                    });
                 }
 
                 map.events.add('ready', function() {
