@@ -57,7 +57,7 @@ function chart(context, title, time_data, data, primarty_colour, background_colo
 function UpdateMaxMin(data, id_max, id_min, units) {
     if (data.length > 1) {
         document.getElementById(id_max).textContent = "Max " + Math.max.apply(Math, data) + " " + units;
-        document.getElementById(id_min).textContent = "Max " + Math.min.apply(Math, data) + " " + units;
+        document.getElementById(id_min).textContent = "Min " + Math.min.apply(Math, data) + " " + units;
     }
 }
 
