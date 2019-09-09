@@ -161,23 +161,13 @@ function FilterCharts() {
     shelf_life_chart.destroy();
     ethylene_chart.destroy();
 
-    if (time_data_f.length > 0) {
-        temp_chart = chart("temp-chart", "Temperature (Celsius)", time_data_f, temp_data_f, "rgba(255, 99, 132, 1)", "rgba(255, 99, 132, 0.4)");
-        humidity_chart = chart("humidity-chart", "Humidity (%)", time_data_f, humidity_data_f, "rgba(54, 162, 235, 1)", "rgba(54, 162, 235, 0.4)");
-        o2_chart = chart("o2-chart", "O2 (%)", time_data_f, o2_data_f, "rgba(75, 192, 192, 1)", "rgba(75, 192, 192, 0.4)");
-        co2_chart = chart("co2-chart", "CO2 (%)", time_data_f, co2_data_f, "rgba(145, 97, 242, 1)", "rgba(145, 97, 242, 0.4)");
-        accel_chart = chart("accel-chart", "Accel |m/s^2|", time_data_f, accel_data_f, "rgba(255, 205, 86, 1)", "rgba(255, 205, 86, 0.4)");
-        shelf_life_chart = chart("shelf-life-chart", "Shelf Life (Days)", time_data_f, shelf_life_data_f, "rgba(255, 201, 14, 1)", "rgba(255, 201, 14, 0.4)");
-        ethylene_chart = chart("ethylene-chart", "Ethyene pmol/(kgs)", time_data_f, ethylene_data_f, "rgba(128, 64, 64, 1)", "rgba(128, 64, 64, 0.4)");
-    } else {
-        temp_chart.destroy();
-        humidity_chart.destroy();
-        o2_chart.destroy();
-        co2_chart.destroy();
-        accel_chart.destroy();
-        shelf_life_chart.destroy();
-        ethylene_chart.destroy();
-    }
+    temp_chart = chart("temp-chart", "Temperature (Celsius)", time_data_f, temp_data_f, "rgba(255, 99, 132, 1)", "rgba(255, 99, 132, 0.4)");
+    humidity_chart = chart("humidity-chart", "Humidity (%)", time_data_f, humidity_data_f, "rgba(54, 162, 235, 1)", "rgba(54, 162, 235, 0.4)");
+    o2_chart = chart("o2-chart", "O2 (%)", time_data_f, o2_data_f, "rgba(75, 192, 192, 1)", "rgba(75, 192, 192, 0.4)");
+    co2_chart = chart("co2-chart", "CO2 (%)", time_data_f, co2_data_f, "rgba(145, 97, 242, 1)", "rgba(145, 97, 242, 0.4)");
+    accel_chart = chart("accel-chart", "Accel |m/s^2|", time_data_f, accel_data_f, "rgba(255, 205, 86, 1)", "rgba(255, 205, 86, 0.4)");
+    shelf_life_chart = chart("shelf-life-chart", "Shelf Life (Days)", time_data_f, shelf_life_data_f, "rgba(255, 201, 14, 1)", "rgba(255, 201, 14, 0.4)");
+    ethylene_chart = chart("ethylene-chart", "Ethyene pmol/(kgs)", time_data_f, ethylene_data_f, "rgba(128, 64, 64, 1)", "rgba(128, 64, 64, 0.4)");
 
     // Update the charts to reflect data array changes.
     temp_chart.update();
@@ -212,6 +202,14 @@ function FilterCharts() {
 
 // Default charts.
 function DefaultCharts() {
+    temp_chart.destroy();
+    humidity_chart.destroy();
+    o2_chart.destroy();
+    co2_chart.destroy();
+    accel_chart.destroy();
+    shelf_life_chart.destroy();
+    ethylene_chart.destroy();
+
     temp_chart = chart("temp-chart", "Temperature (Celsius)", time_data, temp_data, "rgba(255, 99, 132, 1)", "rgba(255, 99, 132, 0.4)");
     humidity_chart = chart("humidity-chart", "Humidity (%)", time_data, humidity_data, "rgba(54, 162, 235, 1)", "rgba(54, 162, 235, 0.4)");
     o2_chart = chart("o2-chart", "O2 (%)", time_data, o2_data, "rgba(75, 192, 192, 1)", "rgba(75, 192, 192, 0.4)");
