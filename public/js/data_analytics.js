@@ -98,6 +98,7 @@ function Search() {
 
 $(document).ready(function() {
     const maxLen = 100;
+    var count = 0;
     var time_data = [],
         temp_data = [],
         humidity_data = [],
@@ -257,16 +258,17 @@ $(document).ready(function() {
 
             // Update table.
             let row = document.getElementById("table").insertRow(-1);
-            row.insertCell(0).innerHTML = obj.Time;
-            row.insertCell(1).innerHTML = obj.Temp;
-            row.insertCell(2).innerHTML = obj.Humidity;
-            row.insertCell(3).innerHTML = obj.O2;
-            row.insertCell(4).innerHTML = obj.CO2;
-            row.insertCell(5).innerHTML = obj.Accel;
-            row.insertCell(6).innerHTML = obj.ShelfLife;
-            row.insertCell(7).innerHTML = obj.Lon;
-            row.insertCell(8).innerHTML = obj.Lat;
-
+            row.insertCell(0).innerHTML = count;
+            row.insertCell(1).innerHTML = obj.Time;
+            row.insertCell(2).innerHTML = obj.Temp;
+            row.insertCell(3).innerHTML = obj.Humidity;
+            row.insertCell(4).innerHTML = obj.O2;
+            row.insertCell(5).innerHTML = obj.CO2;
+            row.insertCell(6).innerHTML = obj.Accel;
+            row.insertCell(7).innerHTML = obj.ShelfLife;
+            row.insertCell(8).innerHTML = obj.Lon;
+            row.insertCell(9).innerHTML = obj.Lat;
+            count++;
         } catch (err) {
             console.error(err);
         }
