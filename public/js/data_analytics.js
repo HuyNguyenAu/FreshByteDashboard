@@ -98,7 +98,6 @@ function Search() {
 
 $(document).ready(function() {
     const maxLen = 100;
-    var load_more_count = 0;
     var time_data = [],
         temp_data = [],
         humidity_data = [],
@@ -272,17 +271,4 @@ $(document).ready(function() {
             console.error(err);
         }
     }
-
-    // Scroll to bottom to load more entries.
-    window.onscroll = function() {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-            load_more_count++;
-            console.log(load_more_count);
-            webSocket.send(JSON.stringify({ data: "select * from Telemetry order by Time offset " + load_more_count * 100 + " row fetch first 100 row only ", tag: "sql" }));
-        }
-    };
-
-    $(window).on('beforeunload', function() {
-        webSocket.close();
-    });
 });
