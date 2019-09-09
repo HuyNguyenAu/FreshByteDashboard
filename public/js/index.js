@@ -94,7 +94,7 @@ $(document).ready(function() {
     webSocket.onopen = function() {
         console.log('Successfully connect WebSocket');
         // Get maps subscription key.
-        webSocket.send(JSON.stringify({ Data: "map_key", Tag: "map_key" }));
+        webSocket.send("map_key");
     }
 
     // Azure Maps.
@@ -117,7 +117,7 @@ $(document).ready(function() {
                     center: user_position,
                     authOptions: {
                         authType: 'subscriptionKey',
-                        subscriptionKey: obj.Data.replace(/Azure.Maps.SubscriptionKey\s/, "").replace(/"/g, '')
+                        subscriptionKey: obj.data.replace(/Azure.Maps.SubscriptionKey\s/, "").replace(/"/g, '')
                     },
                     enableAccessibility: true,
                 });
