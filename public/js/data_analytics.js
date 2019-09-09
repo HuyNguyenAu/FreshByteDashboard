@@ -136,7 +136,7 @@ $(document).ready(function() {
             console.log('Received message: ' + message.data);
 
             // Only accept objects with the dashboard tag.
-            if (obj.tag != "data_analytics") {
+            if (obj.Tag != "data_analytics") {
                 return;
             }
 
