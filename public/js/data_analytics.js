@@ -277,6 +277,7 @@ $(document).ready(function() {
     window.onscroll = function() {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
             load_more_count++;
+            console.log(load_more_count);
             webSocket.send(JSON.stringify({ data: "select * from Telemetry order by Time offset " + load_more_count * 100 + " row fetch first 100 row only ", tag: "sql" }));
         }
     };
