@@ -94,6 +94,31 @@ function Search() {
             }
         }
     }
+    console.log(GetIDs());
+}
+
+// Get table ids.
+function GetIDs() {
+    let input, filter, table, tr, td, i, txtValue, ids = [];
+    input = document.getElementById("search");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("table");
+    tr = table.getElementsByTagName("tr");
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+        // Search the whole row (row elements).
+        for (j = 0; j < tr[i].getElementsByTagName("td").length; j++) {
+            td = tr[i].getElementsByTagName("td")[j];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    ids.push(tr[i].getElementsByTagName("td")[0]);
+                }
+            }
+        }
+    }
+
+    return ids;
 }
 
 $(document).ready(function() {
