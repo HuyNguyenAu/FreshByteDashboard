@@ -304,7 +304,6 @@ $(document).ready(function() {
             row.insertCell(7).innerHTML = obj.ShelfLife;
             row.insertCell(8).innerHTML = obj.Lon;
             row.insertCell(9).innerHTML = obj.Lat;
-            count++;
         } catch (err) {
             console.error(err);
         }
