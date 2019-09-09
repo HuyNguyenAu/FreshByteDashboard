@@ -12,7 +12,7 @@ $(document).ready(function() {
     webSocket.onopen = function() {
         console.log('Successfully connect WebSocket');
         // Get maps subscription key.
-        webSocket.send("map_key");
+        webSocket.send(JSON.stringify({ data: "map_key", tag: "map_key" }));
     }
 
     webSocket.onmessage = function(message) {
