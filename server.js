@@ -37,7 +37,6 @@ wss.broadcast = function broadcast(data) {
 wss.on('connection', function connection(ws) {
     ws.on('message', function incoming(message) {
         let obj = JSON.parse(message.data);
-        wss.broadcast(JSON.stringify(message.data));
         if (obj.tag == "sql") {
             // https://docs.microsoft.com/en-us/azure/sql-database/sql-database-connect-query-nodejs
             // Create connection to database
