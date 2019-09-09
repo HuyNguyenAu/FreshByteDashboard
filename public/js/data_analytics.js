@@ -278,7 +278,12 @@ $(document).ready(function() {
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
             load_more_count++;
             console.log(load_more_count);
-            webSocket.send(JSON.stringify({ data: "select * from Telemetry order by Time offset " + load_more_count * 100 + " row fetch first 100 row only ", tag: "sql" }));
+            var webSocket = new WebSocket('wss://' + location.host + '/');
+            webSocket.onopen = function() {
+                console.log('Successfully connect WebSocket');
+                // Call server to send SQL data first 100 entries.
+                webSocket.send(JSON.stringify({ data: "select * from Telemetry order by Time offset " + load_more_count * 100 + " row fetch first 100 row only ", tag: "sql" }));
+            }
         }
     };
 });
