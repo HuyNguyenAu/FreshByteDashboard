@@ -56,8 +56,8 @@ function chart(context, title, time_data, data, primarty_colour, background_colo
 // Update max and min values
 function UpdateMaxMin(data, id_max, id_min, units) {
     if (data.length > 1) {
-        document.getElementById(id_max).textContent = "Max " + Math.max.apply(Math, data) + " " + units;
-        document.getElementById(id_min).textContent = "Min " + Math.min.apply(Math, data) + " " + units;
+        document.getElementById(id_max).textContent = "Max " + Math.max.apply(Math, data).toPrecision(4) + " " + units;
+        document.getElementById(id_min).textContent = "Min " + Math.min.apply(Math, data).toPrecision(4) + " " + units;
     }
 }
 
@@ -66,7 +66,7 @@ function UpdateMaxMin(data, id_max, id_min, units) {
 function Average(data) {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
     let sum = data.reduce((previous, current) => current += previous);
-    return sum / data.length;
+    return (sum / data.length).toPrecision(4);
 }
 
 $(document).ready(function() {
