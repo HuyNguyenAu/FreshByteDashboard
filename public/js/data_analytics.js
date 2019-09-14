@@ -309,14 +309,6 @@ $(document).ready(function() {
                 }
 
                 map.events.add('ready', function() {
-                    //Add controls to the map.
-                    map.controls.add(
-                        new BringDataIntoViewControl({
-                            units: 'metric'
-                        }), {
-                            position: 'top-left'
-                        });
-
                     ready = true;
                 });
                 map.events.add('ready', addControls);
