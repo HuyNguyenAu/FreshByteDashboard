@@ -270,7 +270,7 @@ $(document).ready(function() {
     webSocket.onopen = function() {
         console.log('Successfully connect WebSocket');
         // Key map key.
-        webSocket.send(JSON.stringify({ data: "map_key", tag: "map_key" }));
+        // webSocket.send(JSON.stringify({ data: "map_key", tag: "map_key" }));
         // Call server to send SQL data first 100 entries.
         webSocket.send(JSON.stringify({ data: "select * from Telemetry order by Time offset 0 row fetch first 100 row only", tag: "sql" }));
     }
