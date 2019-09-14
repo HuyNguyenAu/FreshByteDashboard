@@ -7,7 +7,9 @@ var time_data = [],
     co2_data = [],
     accel_data = [],
     shelf_life_data = [],
-    ethylene_data = [];
+    ethylene_data = [],
+    lon_data = [],
+    lat_data = [];
 
 var temp_chart,
     humidity_chart,
