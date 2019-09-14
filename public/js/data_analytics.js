@@ -17,6 +17,12 @@ var temp_chart,
     shelf_life_chart,
     ethylene_chart;
 
+// Azure Maps.
+var ready = false,
+    user_position = [144.96292, -37.80737],
+    map,
+    controls = [];
+
 // Create config with specified parameters, keeps the core code simple.
 function config(title, time, data, primary_colour, background_colour) {
     return {
@@ -263,6 +269,8 @@ $(document).ready(function() {
     var webSocket = new WebSocket('wss://' + location.host + '/');
     webSocket.onopen = function() {
         console.log('Successfully connect WebSocket');
+        // Key map key.
+        webSocket.send(JSON.stringify({ data: "map_key", tag: "map_key" }));
         // Call server to send SQL data first 100 entries.
         webSocket.send(JSON.stringify({ data: "select * from Telemetry order by Time offset 0 row fetch first 100 row only", tag: "sql" }));
     }
@@ -273,9 +281,49 @@ $(document).ready(function() {
     // !!! Need a better way to handle the repeated code blocks below.
     webSocket.onmessage = function(message) {
         try {
-            var obj = JSON.parse(message.data);
+            // Setup maps when key received.
+            if (obj.Tag == "map_key") {
+                map = new atlas.Map('map', {
+                    center: user_position,
+                    authOptions: {
+                        authType: 'subscriptionKey',
+                        subscriptionKey: obj.data.replace(/Azure.Maps.SubscriptionKey\s/, "").replace(/"/g, '')
+                    },
+                    enableAccessibility: true,
+                });
 
-            console.log('Received message: ' + message.data);
+                function addControls() {
+                    map.controls.remove(controls);
+                    controls = [];
+                    var controlStyle = "light";
+                    // Zoom.
+                    controls.push(new atlas.control.ZoomControl({
+                        zoomDelta: 1,
+                        style: controlStyle
+                    }));
+                    map.controls.add(controls, {
+                        position: "top-right"
+                    });
+                }
+
+                map.events.add('ready', function() {
+                    //Add controls to the map.
+                    map.controls.add(
+                        new BringDataIntoViewControl({
+                            units: 'metric'
+                        }), {
+                            position: 'top-left'
+                        });
+
+                    ready = true;
+                });
+                map.events.add('ready', addControls);
+
+            } else {
+                console.log('Received message: ' + message.data);
+            }
+
+            var obj = JSON.parse(message.data);
 
             // Only accept objects with the dashboard tag.
             if (obj.Tag != "data_analytics") {
@@ -287,6 +335,14 @@ $(document).ready(function() {
                 !obj.ShelfLife || !obj.Ethylene || !obj.Lon || !obj.Lat || !obj.Tag) {
                 console.log('Message contains unexpected contents: ' + message.data);
                 return;
+            }
+
+            if (ready) {
+                var user_position_marker = new atlas.HtmlMarker({
+                    htmlContent: '<div class="pulseIcon"></div>',
+                    position: [obj.Lon, obj.Lat]
+                });
+                map.markers.add(user_position_marker);
             }
 
             // Update the data and dashboard elements.          
@@ -351,6 +407,20 @@ $(document).ready(function() {
             }
             if (ethylene_data.length > maxLen) {
                 ethylene_data.shift();
+            }
+
+            if (obj.Lon) {
+                lon_data.push(obj.Lon);
+            }
+            if (lon_data.length > maxLen) {
+                lon_data.shift();
+            }
+
+            if (obj.Lat) {
+                lat_data.push(obj.Lat);
+            }
+            if (lat_data.length > maxLen) {
+                lat_data.shift();
             }
 
             document.getElementById("temp").textContent = Average(temp_data) + "°C";
