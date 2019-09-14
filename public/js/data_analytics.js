@@ -336,6 +336,8 @@ $(document).ready(function() {
                     position: [obj.Lon, obj.Lat]
                 });
                 map.markers.add(user_position_marker);
+                console.log('Added marker: ' +
+                    obj.Lon + ',' + obj.Lat);
             }
 
             // Update the data and dashboard elements.          
