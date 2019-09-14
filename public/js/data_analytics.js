@@ -270,9 +270,7 @@ $(document).ready(function() {
     webSocket.onopen = function() {
         console.log('Successfully connect WebSocket');
         // Key map key.
-        // webSocket.send(JSON.stringify({ data: "map_key", tag: "map_key" }));
-        // Call server to send SQL data first 100 entries.
-        webSocket.send(JSON.stringify({ data: "select * from Telemetry order by Time offset 0 row fetch first 100 row only", tag: "sql" }));
+        webSocket.send(JSON.stringify({ data: "map_key", tag: "map_key" }));
     }
 
     // Update the data arrays and dashboard elements to latest MQTT message received.
@@ -281,6 +279,8 @@ $(document).ready(function() {
     // !!! Need a better way to handle the repeated code blocks below.
     webSocket.onmessage = function(message) {
         try {
+            var obj = JSON.parse(message.data);
+
             // Setup maps when key received.
             if (obj.Tag == "map_key") {
                 map = new atlas.Map('map', {
@@ -318,12 +318,11 @@ $(document).ready(function() {
                     ready = true;
                 });
                 map.events.add('ready', addControls);
-
+                // Call server to send SQL data first 100 entries.
+                webSocket.send(JSON.stringify({ data: "select * from Telemetry order by Time offset 0 row fetch first 100 row only", tag: "sql" }));
             } else {
                 console.log('Received message: ' + message.data);
             }
-
-            var obj = JSON.parse(message.data);
 
             // Only accept objects with the dashboard tag.
             if (obj.Tag != "data_analytics") {
