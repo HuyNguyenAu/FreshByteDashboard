@@ -149,8 +149,7 @@ function FilterCharts() {
         accel_data_f = [],
         shelf_life_data_f = [],
         ethylene_data_f = [],
-        lon_data_f = [],
-        lat_data_f = [];
+        lon_lat_data_f = [];
 
     GetIDs().forEach(x => {
         time_data_f.push(time_data[x]);
@@ -161,8 +160,7 @@ function FilterCharts() {
         accel_data_f.push(accel_data[x]);
         shelf_life_data_f.push(shelf_life_data[x]);
         ethylene_data_f.push(ethylene_data[x]);
-        lon_data_f.push(lon_data[x]);
-        lat_data_f.push(lat_data[x]);
+        lon_lat_data_f.push([lon_data[x], lat_data[x]]);
     });
 
     temp_chart.destroy();
@@ -172,6 +170,19 @@ function FilterCharts() {
     accel_chart.destroy();
     shelf_life_chart.destroy();
     ethylene_chart.destroy();
+
+    if (ready) {
+        map.markers.clear();
+        lon_lat_data_f.forEach(x => {
+            var user_position_marker = new atlas.HtmlMarker({
+                htmlContent: '<div class="pulseIcon"></div>',
+                position: [x[0], x[1]]
+            });
+            map.markers.add(user_position_marker);
+            console.log('Added marker: ' +
+                x[0] + ',' + x[1]);
+        });
+    }
 
     temp_chart = chart("temp-chart", "Temperature (Celsius)", time_data_f, temp_data_f, "rgba(255, 99, 132, 1)", "rgba(255, 99, 132, 0.4)");
     humidity_chart = chart("humidity-chart", "Humidity (%)", time_data_f, humidity_data_f, "rgba(54, 162, 235, 1)", "rgba(54, 162, 235, 0.4)");
@@ -475,9 +486,6 @@ $(document).ready(function() {
         try {
             Search();
             FilterCharts();
-            if (ready) {
-                map.markers.clear();
-            }
         } catch {}
         if (!document.getElementById("search").value.length) {
             DefaultCharts();
