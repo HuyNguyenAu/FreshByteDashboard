@@ -172,6 +172,6 @@ https://stackoverflow.com/questions/44154580/equal-width-flex-items-even-after-t
         align-content: center;
     }
     .mobile {
-        padding-left: 50%;
+        padding-left: 35%;
     }
 }

@@ -148,7 +148,9 @@ function FilterCharts() {
         co2_data_f = [],
         accel_data_f = [],
         shelf_life_data_f = [],
-        ethylene_data_f = [];
+        ethylene_data_f = [],
+        lon_data_f = [],
+        lat_data_f = [];
 
     GetIDs().forEach(x => {
         time_data_f.push(time_data[x]);
@@ -159,6 +161,8 @@ function FilterCharts() {
         accel_data_f.push(accel_data[x]);
         shelf_life_data_f.push(shelf_life_data[x]);
         ethylene_data_f.push(ethylene_data[x]);
+        lon_data_f.push(lon_data[x]);
+        lat_data_f.push(lat_data[x]);
     });
 
     temp_chart.destroy();
@@ -471,11 +475,13 @@ $(document).ready(function() {
         try {
             Search();
             FilterCharts();
-        } catch {
-
-        }
+            if (ready) {
+                map.markers.clear();
+            }
+        } catch {}
         if (!document.getElementById("search").value.length) {
             DefaultCharts();
+            FilterMap();
         }
     });
 });
