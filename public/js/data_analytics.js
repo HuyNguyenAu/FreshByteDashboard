@@ -295,9 +295,10 @@ $(document).ready(function() {
     // The dashboard only displays the information received, arduino does the pre-processing.
     // !!! Need a better way to handle the repeated code blocks below.
     webSocket.onmessage = function(message) {
+        console.log(message.data);
         try {
             var obj = JSON.parse(message.data);
-            console.log(message.data);
+
             // Setup maps when key received.
             if (obj.Tag == "map_key") {
                 map = new atlas.Map('map', {
