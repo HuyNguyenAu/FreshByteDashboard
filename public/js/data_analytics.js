@@ -326,7 +326,7 @@ $(document).ready(function() {
                 map.events.add('ready', function() {
                     ready = true;
                     // Call server to send SQL data first 100 entries.
-                    webSocket.send(JSON.stringify({ data: "select * from Telemetry order by Time offset 0 row fetch first 100 row only", tag: "sql" }));
+                    webSocket.send(JSON.stringify({ data: "select * from Telemetry order by Time desc offset 0 row fetch first 100 row only", tag: "sql" }));
                 });
                 map.events.add('ready', addControls);
             } else {
