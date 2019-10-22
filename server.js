@@ -97,9 +97,8 @@ wss.on('connection', function connection(ws) {
 var iotHubReader = new iotHubClient(process.env['Azure.IoT.IoTHub.ConnectionString'], process.env['Azure.IoT.IoTHub.ConsumerGroup']);
 iotHubReader.startReadMessage(function(obj, date) {
     try {
-        console.log(date);
-        date = date || Date.now()
-        wss.broadcast(JSON.stringify(Object.assign(obj, { Time: moment.utc(date).format('YYYY:MM:DD[T]HH:mm:ss'), Tag: "dashboard" })));
+        // date = date || Date.now();
+        wss.broadcast(JSON.stringify(Object.assign(obj, { Tag: "dashboard" })));
     } catch (err) {
         console.log(obj);
         console.error(err);
