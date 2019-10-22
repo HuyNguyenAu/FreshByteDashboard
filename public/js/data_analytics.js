@@ -297,7 +297,7 @@ $(document).ready(function() {
     webSocket.onmessage = function(message) {
         try {
             var obj = JSON.parse(message.data);
-
+            console.log(message.data);
             // Setup maps when key received.
             if (obj.Tag == "map_key") {
                 map = new atlas.Map('map', {
